@@ -155,7 +155,7 @@ function capture(screenName, compareAgainst, selector, pageSetupFn, comparisonTh
             {
                 var args = ["-metric", "AE", expected, processed, 'null:'];
                 var child = require('child_process').spawn('compare', args);
-
+console.log("COMMAND: " + JSON.stringify(args));
                 var testFailure = '';
 
                 function onCommandResponse (numPxDifference) {
