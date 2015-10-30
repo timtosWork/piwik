@@ -28,6 +28,7 @@ addons:
       - nginx
       - realpath
       - lftp
+      - imagemagick
 
 # Separate different test suites
 env:
