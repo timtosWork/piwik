@@ -279,7 +279,9 @@ class API extends \Piwik\Plugin\API
     public function getSVGLogoUrl($pathOnly = false)
     {
         $logo = new CustomLogo();
-        return $logo->getSVGLogoUrl($pathOnly);
+        $result = $logo->getSVGLogoUrl($pathOnly);
+        echo "LOGO URL: $result\n";
+        return $result;
     }
 
     /**

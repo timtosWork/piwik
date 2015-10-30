@@ -25,7 +25,7 @@ describe("Login", function () {
         testEnvironment.save();
     });
 
-    it("should load correctly", function (done) {
+    it.only("should load correctly", function (done) {
         expect.screenshot("login_form").to.be.capture(function (page) {
             page.load("");
         }, done);
