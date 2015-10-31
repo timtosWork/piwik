@@ -8,6 +8,7 @@ exiftool -all= -overwrite_original "$PROCESSED"
 
 # compare the file byes before running ImageMagick
 if cmp "$EXPECTED" "$PROCESSED"; then
+    echo "samebytes";
     exit;
 fi
 

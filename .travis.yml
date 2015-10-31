@@ -29,6 +29,7 @@ addons:
       - realpath
       - lftp
       - imagemagick
+      - libimage-exiftool-perl
 
 # Separate different test suites
 env:

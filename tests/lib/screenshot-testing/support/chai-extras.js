@@ -154,8 +154,8 @@ function capture(screenName, compareAgainst, selector, pageSetupFn, comparisonTh
             function compareImages(expected, processed)
             {
                 var pathToCompareScript = path.join(PIWIK_INCLUDE_PATH, 'tests', 'lib', 'screenshot-testing', 'misc', 'compare.sh');
-                var args = [expected, processed]; // ["-metric", "AE", expected, processed, 'null:'];
-                var child = require('child_process').spawn(pathToCompareScript, args);
+                var args = [pathToCompareScript, expected, processed]; // ["-metric", "AE", expected, processed, 'null:'];
+                var child = require('child_process').spawn('bash', args);
 
                 var testFailure = '';
 
@@ -164,6 +164,13 @@ function capture(screenName, compareAgainst, selector, pageSetupFn, comparisonTh
                     // on different images we get the number of different pixels
                     // on any error we get an error message (eg image size different)
                     numPxDifference = numPxDifference.trim();
+
+                    if (numPxDifference == 'samebytes') {
+                        if (options['print-logs']) {
+                            console.log("Found image file data to be indentical.");
+                        }
+                        return;
+                    }
 
                     if (numPxDifference && numPxDifference !== '0') {
                         if (/^(\d+)$/.test(numPxDifference)) {
