@@ -153,8 +153,9 @@ function capture(screenName, compareAgainst, selector, pageSetupFn, comparisonTh
 
             function compareImages(expected, processed)
             {
-                var args = ["-metric", "AE", expected, processed, 'null:'];
-                var child = require('child_process').spawn('compare', args);
+                var pathToCompareScript = path.join(PIWIK_INCLUDE_PATH, 'tests', 'lib', 'screenshot-testing', 'misc', 'compare.sh');
+                var args = [expected, processed]; // ["-metric", "AE", expected, processed, 'null:'];
+                var child = require('child_process').spawn(pathToCompareScript, args);
 
                 var testFailure = '';
 
