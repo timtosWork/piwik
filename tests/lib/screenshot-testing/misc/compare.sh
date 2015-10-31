@@ -3,8 +3,8 @@
 EXPECTED=$1
 PROCESSED=$2
 
-exiftool -all= -overwrite_original "$EXPECTED"
-exiftool -all= -overwrite_original "$PROCESSED"
+exiftool -all= -overwrite_original "$EXPECTED" &> /dev/null
+exiftool -all= -overwrite_original "$PROCESSED" &> /dev/null
 
 # compare the file byes before running ImageMagick
 if cmp "$EXPECTED" "$PROCESSED"; then
