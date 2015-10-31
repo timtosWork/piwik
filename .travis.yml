@@ -44,7 +44,7 @@ env:
     # All tests after another
     #- TEST_SUITE=AllTests MYSQL_ADAPTER=PDO_MYSQL
     #- TEST_SUITE=AllTests MYSQL_ADAPTER=MYSQLI
-    - TEST_SUITE=UITests MYSQL_ADAPTER=PDO_MYSQL UITEST_EXTRA_OPTIONS="--run-first-half-only"
+    - TEST_SUITE=UITests MYSQL_ADAPTER=PDO_MYSQL UITEST_EXTRA_OPTIONS="--run-first-half-only --print-logs"
     #- TEST_SUITE=UITests MYSQL_ADAPTER=PDO_MYSQL UITEST_EXTRA_OPTIONS="--run-second-half-only"
   global:
     - PIWIK_ROOT_DIR=$TRAVIS_BUILD_DIR
