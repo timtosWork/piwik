@@ -158,7 +158,7 @@ before_script:
   - git --version
   - git fetch origin --unshallow
   - cat .git/config
-  - sed "s|fetch = +refs/heads/travis_test2:refs/remotes/origin/travis_test2|fetch = +refs/heads/*:refs/remotes/origin/*|g" .git/config
+  - sed -i "s|fetch = +refs/heads/travis_test2:refs/remotes/origin/travis_test2|fetch = +refs/heads/*:refs/remotes/origin/*|g" .git/config
   - git fetch origin
   - git branch -r
   - git remote
