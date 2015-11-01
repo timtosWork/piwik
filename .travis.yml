@@ -157,6 +157,7 @@ before_script:
 
   - git fetch origin
   - git branch
+  - git remote
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
