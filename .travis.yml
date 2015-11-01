@@ -156,6 +156,8 @@ before_script:
   - mysql -e 'create database piwik_tests;'
 
   - git fetch origin
+  - git checkout master
+  - git checkout travis_test2
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
