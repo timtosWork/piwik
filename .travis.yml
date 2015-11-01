@@ -113,6 +113,11 @@ before_install:
 
 install:
   - git fetch -q
+  - git fetch origin --unshallow
+  - sed -i "s|fetch = +refs/heads/travis_test1:refs/remotes/origin/travis_test1|fetch = +refs/heads/*:refs/remotes/origin/*|g" .git/config
+  - git fetch origin
+  - git checkout master
+  - git checkout travis_test1
 
   - export GENERATE_TRAVIS_YML_COMMAND="php ./tests/travis/generator/main.php generate:travis-yml --core --sudo-false --verbose"
   #- '[[ "$TRAVIS_JOB_NUMBER" != *.1 || "$TRAVIS_PULL_REQUEST" != "false" ]] || ./tests/travis/autoupdate_travis_yml.sh'
