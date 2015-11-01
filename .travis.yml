@@ -155,7 +155,8 @@ before_script:
   - php -r "var_dump(gd_info());"
   - mysql -e 'create database piwik_tests;'
 
-  - git checkout origin master -- ./tests/PHPUnit/config.ini.travis.php
+  - git fetch origin
+  - git branch
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
