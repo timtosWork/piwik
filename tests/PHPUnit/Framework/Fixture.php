@@ -295,7 +295,7 @@ class Fixture extends \PHPUnit_Framework_Assert
         if ($this->overwriteExisting
             || !$this->isFixtureSetUp()
         ) {
-            $this->setUp();
+            //$this->setUp();
 
             $this->markFixtureSetUp();
             $this->log("Database {$this->dbName} marked as successfully set up.");
