@@ -158,6 +158,12 @@ before_script:
   - git fetch origin --unshallow
   - git branch -r
   - git remote
+  - git remote show origin
+  - git config --get remote.origin.url
+  - git fetch origin master
+  - git branch -r
+  - git checkout origin master
+  - git checkout travis_test2
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
