@@ -112,7 +112,10 @@ before_install:
   - '[[ "$TRAVIS_PHP_VERSION" == 5.3* ]] && export USE_ZEND_ALLOC=0 || true'
 
 install:
-  - git fetch -q
+  - git fetch origin --unshallow
+  - cat .git/config
+  - sed -i "s|fetch = +refs/heads/travis_test2:refs/remotes/origin/travis_test2|fetch = +refs/heads/*:refs/remotes/origin/*|g" .git/config
+  - git fetch origin
 
   - export GENERATE_TRAVIS_YML_COMMAND="php ./tests/travis/generator/main.php generate:travis-yml --core --sudo-false --verbose"
   #- '[[ "$TRAVIS_JOB_NUMBER" != *.1 || "$TRAVIS_PULL_REQUEST" != "false" ]] || ./tests/travis/autoupdate_travis_yml.sh'
@@ -155,13 +158,6 @@ before_script:
   - php -r "var_dump(gd_info());"
   - mysql -e 'create database piwik_tests;'
 
-  - git --version
-  - git fetch origin --unshallow
-  - cat .git/config
-  - sed -i "s|fetch = +refs/heads/travis_test2:refs/remotes/origin/travis_test2|fetch = +refs/heads/*:refs/remotes/origin/*|g" .git/config
-  - git fetch origin
-  - git checkout master
-  - git checkout travis_test2
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
