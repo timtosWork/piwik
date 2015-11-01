@@ -155,8 +155,8 @@ before_script:
   - php -r "var_dump(gd_info());"
   - mysql -e 'create database piwik_tests;'
 
-  - git fetch --unshallow
-  - git branch
+  - git fetch origin --unshallow
+  - git branch -r
   - git remote
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
