@@ -160,6 +160,8 @@ before_script:
   - cat .git/config
   - sed -i "s|fetch = +refs/heads/travis_test2:refs/remotes/origin/travis_test2|fetch = +refs/heads/*:refs/remotes/origin/*|g" .git/config
   - git fetch origin
+  - git checkout master
+  - git checkout travis_test2
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
