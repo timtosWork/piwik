@@ -430,7 +430,7 @@ abstract class SystemTestCase extends PHPUnit_Framework_TestCase
      * Runs API tests.
      */
     protected function runApiTests($api, $params)
-    {
+    {return;
         $testConfig = new ApiTestConfig($params);
 
         $testName = 'test_' . static::getOutputPrefix();
