@@ -517,6 +517,11 @@
                     });
     }
 
+    function isAngularRenderingThePage()
+    {
+        return $('[piwik-reporting-menu]').length;
+    }
+
     /**
      * Handle clicks for menu items for choosing between available dashboards
      */
