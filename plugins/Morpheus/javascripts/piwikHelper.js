@@ -131,6 +131,12 @@ var piwikHelper = {
         return ($element.length && $element.hasClass('ng-isolate-scope'));
     },
 
+    isAngularRenderingThePage: function ()
+    {
+        return $('[piwik-reporting-menu]').length;
+    },
+
+
     /**
      * Detects whether angular is rendering the page. If so, the page will be reloaded automatically
      * via angular as soon as it detects a $locationChange
