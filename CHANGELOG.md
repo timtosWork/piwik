@@ -19,6 +19,7 @@ This is a changelog for Piwik platform developers. All changes for our HTTP API'
 * The `core:plugin` console command has been removed in favor of the new `plugin:list`, `plugin:activate` and `plugin:deactivate` commands as anounced in Piwik 2.11
 * The visibility of private properties and methods in `Piwik\Plugins\Login\Controller` were changed to `protected`
 * Controller actions are now case sensitive. This means the URL and events have to use the same case as the name of the action defined in a controller. 
+* When calling the HTTP Reporting API, a default filter limit of 100 is now always applied. The default filter limit used to be not applied to API calls that do not return reports, such as when requesting sites, users or goals information.
 * The "User Menu" was removed and should be replaced by "Admin Menu". Change `configureUserMenu(MenuUser $menu)` to `configureAdminMenu(MenuAdmin $menu)` in your `Menu.php`.
 * The method `Piwik\Menu\MenuAdmin::addSettingsItem()` was removed, use  `Piwik\Menu\MenuAdmin::addManageItem()` instead.
 
