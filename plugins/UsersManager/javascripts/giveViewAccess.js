@@ -85,7 +85,8 @@ $(document).ready(function () {
         ajaxHandler.addParams({
             method: 'UsersManager.getUsersAccessFromSite',
             userLogin: userLogin,
-            idSite: idSites
+            idSite: idSites,
+            filter_limit: '-1'
         }, 'GET');
         ajaxHandler.setCallback(function (users) {
             var userLogins = [];
@@ -110,7 +111,7 @@ $(document).ready(function () {
         var ajaxHandler = createNewAjaxHelper();
         ajaxHandler.addParams({
             method: 'UsersManager.userExists',
-            userLogin: usernameOrEmail,
+            userLogin: usernameOrEmail
         }, 'GET');
         ajaxHandler.setCallback(callback);
         ajaxHandler.send();
@@ -121,7 +122,7 @@ $(document).ready(function () {
         var ajaxHandler = createNewAjaxHelper();
         ajaxHandler.addParams({
             method: 'UsersManager.getUserLoginFromUserEmail',
-            userEmail: usernameOrEmail,
+            userEmail: usernameOrEmail
         }, 'GET');
         ajaxHandler.setCallback(callback);
         ajaxHandler.send();

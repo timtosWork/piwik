@@ -107,14 +107,16 @@
                 {
                     module: 'API',
                     method: 'SitesManager.getSiteUrlsFromId',
-                    idSite: idSite
+                    idSite: idSite,
+                    filter_limit: '-1'
                 },
 
                 // get site goals
                 {
                     module: 'API',
                     method: 'Goals.getGoals',
-                    idSite: idSite
+                    idSite: idSite,
+                    filter_limit: '-1'
                 }
             );
             ajaxRequest.setCallback(function (data) {
