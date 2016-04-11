@@ -8,6 +8,9 @@
  * @package Piwik
  */
 
+if(rand(0,1) > 0.5) {
+    echo "randomfail";
+}
 if (!defined('PIWIK_DOCUMENT_ROOT')) {
     define('PIWIK_DOCUMENT_ROOT', dirname(__FILE__) == '/' ? '' : dirname(__FILE__));
 }
