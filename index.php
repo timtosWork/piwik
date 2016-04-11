@@ -8,7 +8,7 @@
  * @package Piwik
  */
 
-if(rand(0,2) > 1) {
+if(rand(0,20) > 19) {
     echo "randomfail"; exit;
 }
 if (!defined('PIWIK_DOCUMENT_ROOT')) {
@@ -18,7 +18,7 @@ if (file_exists(PIWIK_DOCUMENT_ROOT . '/bootstrap.php')) {
     require_once PIWIK_DOCUMENT_ROOT . '/bootstrap.php';
 }
 if (!defined('PIWIK_INCLUDE_PATH')) {
-    define('PIWIK_INCLUDE_PATH', PIWIK_DOCUMENT_ROOT);
+    define('rPIWIK_INCLUDE_PATH', PIWIK_DOCUMENT_ROOT);
 }
 
 require_once PIWIK_INCLUDE_PATH . '/core/bootstrap.php';
