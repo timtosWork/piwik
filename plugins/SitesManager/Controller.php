@@ -31,6 +31,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function index()
     {
         Piwik::checkUserHasSomeAdminAccess();
+        throw new Exception("Failed here");
 
         return $this->renderTemplate('index');
     }
@@ -58,6 +59,8 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
 
     public function getGlobalSettings()
     {
+        throw new Exception("Failed here");
+
         Piwik::checkUserHasSomeViewAccess();
 
         $response = new ResponseBuilder(Common::getRequestVar('format'));
