@@ -241,7 +241,9 @@ Segmentation = (function($) {
                         checkSelected = encodeURIComponent(checkSelected);
                     }
 
-                    if( checkSelected == self.currentSegmentStr){
+                    if( checkSelected == self.currentSegmentStr
+                        || checkSelected == decodeURIComponent(self.currentSegmentStr)
+                        || checkSelected == decodeURIComponent(decodeURIComponent(self.currentSegmentStr))){
                         injClass = 'class="segmentSelected"';
                     }
                     listHtml += '<li data-idsegment="'+segment.idsegment+'" data-definition="'+ (segment.definition).replace(/"/g, '&quot;') +'" '
@@ -1191,7 +1193,13 @@ $(document).ready(function() {
         this.changeSegment = function(segmentDefinition) {
             segmentDefinition = cleanupSegmentDefinition(segmentDefinition);
             segmentDefinition = encodeURIComponent(segmentDefinition);
-            return broadcast.propagateNewPage('segment=' + segmentDefinition, true);
+
+            if (piwikHelper.isAngularRenderingThePage()) {
+                return broadcast.propagateAjax('segment=' + segmentDefinition, false);
+            } else {
+                return broadcast.propagateNewPage('segment=' + segmentDefinition, true);
+            }
+
         };
 
         this.changeSegmentList = function () {};
@@ -1312,9 +1320,9 @@ $(document).ready(function() {
             ajaxHandler.send(true);
         };
 
-        var segmentFromRequest = encodeURIComponent(self.props.selectedSegment)
-            || broadcast.getValueFromHash('segment')
-            || broadcast.getValueFromUrl('segment');
+        var segmentFromRequest = broadcast.getValueFromHash('segment')
+                                 || encodeURIComponent(self.props.selectedSegment)
+                                 || broadcast.getValueFromUrl('segment');
         if($.browser.mozilla) {
             segmentFromRequest = decodeURIComponent(segmentFromRequest);
         }

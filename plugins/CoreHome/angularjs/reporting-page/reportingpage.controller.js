@@ -17,8 +17,9 @@
         var currentSubcategory = null;
         var currentPeriod = null;
         var currentDate = null;
+        var currentSegment = null;
 
-        $scope.renderPage = function (category, subcategory, period, date) {
+        $scope.renderPage = function (category, subcategory) {
             if (!category || !subcategory) {
                 pageModel.resetPage();
                 $scope.loading = false;
@@ -27,8 +28,6 @@
 
             currentCategory = category;
             currentSubcategory = subcategory;
-            currentPeriod = period;
-            currentDate = date;
 
             if (category === 'Dashboard_Dashboard' && $.isNumeric(subcategory) && $('[piwik-dashboard]').length) {
                 // hack to make loading of dashboards faster since all the information is already there in the
@@ -59,16 +58,18 @@
             var subcategory = $search.subcategory;
             var period = $search.period;
             var date = $search.date;
+            var segment = $search.segment;
 
             if (category === currentCategory
                 && subcategory === currentSubcategory
                 && period === currentPeriod
-                && date === currentDate) {
+                && date === currentDate
+                && segment === currentSegment) {
                 // this page is already loaded
                 return;
             }
 
-            $scope.renderPage(category, subcategory, period, date);
+            $scope.renderPage(category, subcategory);
         });
 
         $rootScope.$on('loadPage', function (event, category, subcategory) {
