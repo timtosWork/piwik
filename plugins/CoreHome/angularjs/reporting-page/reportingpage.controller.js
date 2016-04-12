@@ -57,8 +57,8 @@
             // should be handled by $route
             var category = $search.category;
             var subcategory = $search.subcategory;
-            var period = $search.subcategory;
-            var date = $search.subcategory;
+            var period = $search.period;
+            var date = $search.date;
 
             if (category === currentCategory
                 && subcategory === currentSubcategory

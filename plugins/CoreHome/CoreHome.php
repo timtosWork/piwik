@@ -318,5 +318,6 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'CoreHome_MainNavigation';
         $translationKeys[] = 'CoreHome_ChangeCurrentWebsite';
         $translationKeys[] = 'General_CreatedByUser';
+        $translationKeys[] = 'General_DateRangeFromTo';
     }
 }

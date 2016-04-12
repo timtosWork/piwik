@@ -118,6 +118,10 @@
     function propagateNewUrlParams(date, period)
     {
         if (piwikHelper.isAngularRenderingThePage()) {
+
+            $('#periodString').removeClass('expanded');
+            piwikHelper.hideAjaxLoading('ajaxLoadingCalendar');
+
             angular.element(document).injector().invoke(function ($location) {
                 var $search = $location.search();
                 $search.date = date;
@@ -280,12 +284,57 @@
             }
         };
 
+        var formatDateString = function (date) {
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            if (month < 10) {
+                month = '0' + month;
+            }
+            if (day < 10) {
+                day = '0' + day;
+            }
+
+            return date.getFullYear() + '-' + month + '-' + day;
+        }
+
         updateDate = function (dateText) {
             piwikHelper.showAjaxLoading('ajaxLoadingCalendar');
 
             // select new dates in calendar
             setCurrentDate(dateText);
             piwik.period = selectedPeriod;
+            piwik.currentDateString = dateText;
+
+            if (selectedPeriod === 'week') {
+                var dayDiff = currentDate.getDate() - currentDate.getDay();
+                var firstDayOfWeek = new Date(currentDate);
+                firstDayOfWeek.setDate(dayDiff);
+
+                var lastDayOfWeek = new Date(currentDate);
+                lastDayOfWeek.setDate(dayDiff + 6);
+
+                piwik.startDateString = formatDateString(firstDayOfWeek);
+                piwik.endDateString   = formatDateString(lastDayOfWeek);
+            } else if (dateText.indexOf(',') !== -1) {
+                var dateParts = dateText.split(',');
+                piwik.startDateString = dateParts[0];
+                piwik.endDateString = dateParts[1];
+            } else {
+                piwik.startDateString = dateText;
+                piwik.endDateString = dateText;
+            }
+
+            var displayDate = dateText;
+            if (selectedPeriod === 'month') {
+                displayDate = _pk_translate('Intl_Month_Long_StandAlone_' + currentMonth) + ' ' + currentYear;
+            } else if (selectedPeriod === 'year') {
+                displayDate = currentYear;
+            } else if (selectedPeriod === 'range' || selectedPeriod === 'week') {
+                displayDate = _pk_translate('General_DateRangeFromTo', [piwik.startDateString, piwik.endDateString]);
+            }
+
+            $('#date.title').text(displayDate);
+            initTopControls();
 
             // make sure it's called after jquery-ui is done, otherwise everything we do will
             // be undone.
@@ -294,6 +343,7 @@
             datepickerElem.datepicker('refresh');
 
             propagateNewUrlParams(dateText, selectedPeriod);
+            initTopControls();
         };
 
         var toggleMonthDropdown = function (disable) {
