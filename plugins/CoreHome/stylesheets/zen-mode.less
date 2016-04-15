@@ -1,5 +1,15 @@
 #content:not(.admin), .widget, .ui-widget {
 
+  .viewDataTable {
+    &.table, &.tableAllColumns, &.graphPie, &.graphBar, &.cloud, &.graphEvolution, &.sparklines,
+    &#widgetUserCountryMapvisitorMap,
+    &#widgetUserCountryMaprealtimeMap {
+      .content-card;
+
+       margin-top: 0
+    }
+  }
+
   .UserCountryMap .dataTableFooterIcons {
     display: block;
   }
@@ -38,7 +48,7 @@
   }
 
   .dataTableVizHtmlTable > .dataTableWrapper {
-    width: 500px;
+    width: 100%;
   }
 
   .dataTableFooterNavigation {

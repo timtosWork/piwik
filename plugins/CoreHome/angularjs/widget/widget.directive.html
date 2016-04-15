@@ -1,12 +1,12 @@
 <div id="{{ widget.uniqueId }}"
      ng-show="view.showWidget"
-     class="{{widget.viewDataTable}}"
-     ng-class="{'smallTopMargin': (!widget.isFirstInPage && (!widget.name || widgetized))}"
+     class="viewDataTable {{widget.viewDataTable}}"
+     ng-class="{'smallTopMargin': (!widget.isFirstInPage && (!widget.name || widgetized)), 'isFirstWidgetInPage': widget.isFirstInPage}"
     >
     <!--smallTopMargin: we display small margin if it's not the first widget on the page and if there's no headline -->
     <h2 ng-if="!widget.parameters.widget && widget.name && !widgetized"
         piwik-enriched-headline
-        ng-class="{'noTopMargin': widget.isFirstInPage}"
+        class="noTopMargin"
         inline-help="{{widget.documentation}}"
         feature-name="{{widget.name}}">{{widget.name}}</h2>
     <h2 ng-if="widget.parameters.widget && widget.name && !widgetized">{{widget.name}}</h2>

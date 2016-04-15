@@ -1,8 +1,8 @@
 
  #header {
   padding: 0 15px;
-  background-color: @theme-color-background-base;
-  height: 50px;
+  background-color: #37474F;
+  height: 56px;
 
   /* Clear fix */
   &:after {
@@ -24,19 +24,15 @@
     }
 
     .topBarElem {
-      color: @theme-color-text;
+      color: #fff;
       text-decoration: none;
-      padding: 14px 12px;
+      padding: 19px 12px;
       display: inline-block;
       height: 100%;
       transition: background-color 150ms linear;
 
-      &:hover, &:focus {
-        background-color: @theme-color-menu-contrast-background;
-      }
-
-      &.active {
-        color: @theme-color-brand;
+      &:hover, &:focus, &.active {
+        background-color: #455A64;
       }
 
       .menuDropdown {
@@ -49,7 +45,7 @@
     }
 
     .navbar-right {
-        height: 48px;
+        height: 56px;
         position: absolute;
         right: 10px;
         font-size: 13px;
@@ -197,8 +193,14 @@
     float:left;
 
     #search {
-      padding: 8px 0 13px 8px;
-      height: 61px;
+      padding: 16px 0 13px 8px;
+      height: 69px;
+      &:hover {
+        padding-left: 0;
+        .quick-access {
+          width: 224px;
+        }
+      }
 
       .quick-access {
         z-index: 1000;
@@ -215,6 +217,7 @@
     .navbar {
       background-color: @theme-color-menu-contrast-background;
       border-bottom: 1px solid @theme-color-menu-contrast-background;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,.14),0 1px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.12);
 
       .menu-icon {
         padding-right: 13px;
@@ -372,6 +375,7 @@
     background-color: @theme-color-background-base;
     height: auto;
     margin-bottom: 10px;
+    padding-top: 8px;
 
     .piwikTopControl {
       display: inline-block;
@@ -386,9 +390,10 @@
 
 #root, #standalone, .ui-dialog, .ngdialog {
   .borderedControl {
-    background-color: @theme-color-background-base;
+    background-color: @theme-color-background-contrast;
     border: 1px solid @theme-color-background-tinyContrast;
     transition: box-shadow 150ms linear;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.14),0 1px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.12);
     &.expanded,
     &:hover, &:focus {
       box-shadow: 0 1px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
