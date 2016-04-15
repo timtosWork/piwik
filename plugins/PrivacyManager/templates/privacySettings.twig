@@ -5,11 +5,13 @@
 {% block content %}
 {% import 'macros.twig' as piwik %}
 {% if isSuperUser %}
+<div class="content-card">
     <h2 piwik-enriched-headline
         help-url="http://piwik.org/docs/privacy/">{{ title }}</h2>
     <p>{{ 'PrivacyManager_Teaser'|translate('<a href="#anonymizeIPAnchor">',"</a>",'<a href="#deleteLogsAnchor">',"</a>",'<a href="#optOutAnchor">',"</a>")|raw }}
         {{'PrivacyManager_SeeAlsoOurOfficialGuidePrivacy'|translate('<a href="http://piwik.org/privacy/" rel="noreferrer"  target="_blank">','</a>')|raw }}</p>
-
+</div>
+<div class="content-card">
     <h2 id="anonymizeIPAnchor">{{ 'PrivacyManager_UseAnonymizeIp'|translate }}</h2>
     <form method="post" action="{{ {'action':'saveSettings', 'form':'formMaskLength', 'token_auth':token_auth} | urlRewriteWithParameters }}" id="formMaskLength">
         <div id="anonymizeIpSettings" class="form-group">
@@ -281,7 +283,8 @@
         </form>
 
     {% endif %}
-
+</div>
+<div class="content-card">
     <h2 id="DNT">{{ 'PrivacyManager_DoNotTrack_SupportDNTPreference'|translate }}</h2>
     <p>
         {% if dntSupport %}
@@ -315,7 +318,8 @@
         {% endif %}
     </div>
 {% endif %}
-
+</div>
+<div class="content-card">
 <h2 id="optOutAnchor">{{ 'CoreAdminHome_OptOutForYourVisitors'|translate }}</h2>
 <p>
     {{ 'CoreAdminHome_OptOutExplanation'|translate }}
@@ -326,6 +330,5 @@
 <p>
     {{ 'CoreAdminHome_OptOutExplanationBis'|translate("<a href='" ~ optOutUrl ~ "' rel='noreferrer' target='_blank'>","</a>")|raw }}
 </p>
-
-<div style="height:100px;"></div>
+</div>
 {% endblock %}

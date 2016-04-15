@@ -11,7 +11,7 @@
 
 {% block content %}
 <div id="js-tracking-generator-data" max-custom-variables="{{ maxCustomVariables|e('html_attr') }}" data-currencies="{{ currencySymbols|json_encode }}"></div>
-
+<div class="content-card">
 <h2 piwik-enriched-headline
     feature-name="{{ 'CoreAdminHome_TrackingCode'|translate }}"
     help-url="http://piwik.org/docs/tracking-api/">{{ title }}</h2>
@@ -172,7 +172,6 @@
     </div>
 
 </div>
-
 <div id="javascript-output-section">
     <h3>{{ 'General_JsTrackingTag'|translate }}</h3>
 
@@ -182,7 +181,8 @@
         <textarea class="codeblock"> </textarea>
     </div>
 </div>
-
+</div>
+<div class="content-card">
 <h2 id="image-tracking-link">{{ 'CoreAdminHome_ImageTracking'|translate }}</h2>
 
 <div id="image-tracking-code-options">
@@ -246,11 +246,12 @@
     </div>
 
 </div>
-
+</div>
+<div class="content-card">
 <h2>{{ 'CoreAdminHome_ImportingServerLogs'|translate }}</h2>
 
 <p>
     {{ 'CoreAdminHome_ImportingServerLogsDesc'|translate('<a href="http://piwik.org/log-analytics/" rel="noreferrer"  target="_blank">','</a>')|raw }}
 </p>
-
+</div>
 {% endblock %}

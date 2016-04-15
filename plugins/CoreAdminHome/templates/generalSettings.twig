@@ -3,12 +3,13 @@
 {% set title %}{{ 'CoreAdminHome_MenuGeneralSettings'|translate }}{% endset %}
 
 {% block content %}
+
     {% import 'macros.twig' as piwik %}
     {% import 'ajaxMacros.twig' as ajax %}
 
     {{ ajax.errorDiv() }}
     {{ ajax.loadingDiv() }}
-
+<div class="content-card">
     <h2>{{ 'CoreAdminHome_ArchivingSettings'|translate }}</h2>
 
     {% if isGeneralSettingsAdminEnabled %}
@@ -70,7 +71,8 @@
             {{ 'General_RearchiveTimeIntervalOnlyForTodayReports'|translate }}
         </span>
     </div>
-
+</div>
+<div class="content-card">
     {% if isGeneralSettingsAdminEnabled %}
         <h2>{{ 'CoreAdminHome_UpdateSettings'|translate }}</h2>
 
@@ -114,7 +116,8 @@
             </div>
         {% endif %}
     {% endif %}
-
+</div>
+<div class="content-card">
     {% if isGeneralSettingsAdminEnabled %}
         <h2>{{ 'CoreAdminHome_EmailServerSettings'|translate }}</h2>
 
@@ -177,7 +180,8 @@
             </div>
         </div>
     {% endif %}
-
+</div>
+<div class="content-card">
     <h2>{{ 'CoreAdminHome_BrandingSettings'|translate }}</h2>
 
     <p>{{ 'CoreAdminHome_CustomLogoHelpText'|translate }}</p>
@@ -232,7 +236,8 @@
             {% endif %}
         </form>
     </div>
-
+</div>
+<div class="content-card">
     <div class="ui-confirm" id="confirmTrustedHostChange">
         <h2>{{ 'CoreAdminHome_TrustedHostConfirm'|translate }}</h2>
         <input role="yes" type="button" value="{{ 'General_Yes'|translate }}"/>
@@ -272,8 +277,9 @@
     </div>
 
     <input type="submit" value="{{ 'General_Save'|translate }}" class="submit generalSettingsSubmit"/>
-    <br/><br/>
 
+</div>
+<div class="content-card">
     {% if isDataPurgeSettingsEnabled %}
         <h2>{{ 'PrivacyManager_DeleteDataSettings'|translate }}</h2>
         <p>{{ 'PrivacyManager_DeleteDataDescription'|translate }} {{ 'PrivacyManager_DeleteDataDescription2'|translate }}</p>
@@ -283,10 +289,12 @@
             </a>
         </p>
     {% endif %}
+</div>
 
+<div class="content-card">
     <h2 piwik-enriched-headline>{{ 'CoreAdminHome_SystemPluginSettings'|translate }}</h2>
 
     <div piwik-plugin-settings mode="admin"></div>
-
+</div>
 
 {% endblock %}

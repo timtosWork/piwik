@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<div class="content-card">
 <h2 piwik-enriched-headline>{{ title }}</h2>
 
 <div class="ui-confirm" id="confirmPasswordChange">
@@ -116,14 +117,13 @@
     <button type="button" id="userSettingsSubmit">{{ 'General_Save'|translate }}</button>
 
 </form>
-
-    <hr />
-
+    </div>
+<div class="content-card">
     <h2 piwik-enriched-headline>{{ 'CoreAdminHome_PersonalPluginSettings'|translate }}</h2>
 
     <div piwik-plugin-settings mode="user"></div>
-
-    <hr />
+</div>
+<div class="content-card">
     <h2 id="excludeCookie">{{ 'UsersManager_ExcludeVisitsViaCookie'|translate }}</h2>
     <p>
         {% if ignoreCookieSet %}
@@ -137,4 +137,5 @@
     {% else %}{{'UsersManager_ClickHereToSetTheCookieOnDomain'|translate(piwikHost) }}{% endif %}
     <br/>
 </a></span>
+</div>
 {% endblock %}

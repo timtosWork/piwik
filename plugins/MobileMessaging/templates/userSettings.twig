@@ -3,7 +3,7 @@
 {% set title %}{{ 'MobileMessaging_Settings_SMSProvider'|translate }}{% endset %}
 
 {% block content %}
-
+<div class="content-card">
     {% import 'ajaxMacros.twig' as ajax %}
 
     <div style="margin-top:10px">
@@ -125,5 +125,5 @@
         <input role='yes' type='button' value='{{ 'General_Yes'|translate }}'/>
         <input role='no' type='button' value='{{ 'General_No'|translate }}'/>
     </div>
-
+</div>
 {% endblock %}

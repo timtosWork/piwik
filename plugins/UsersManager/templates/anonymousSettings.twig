@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if isSuperUser %}
-
+<div class="content-card">
     <h2 piwik-enriched-headline>{{ title }}</h2>
 
     {% if anonymousSites|length == 0 %}
@@ -74,5 +74,6 @@
         <input type="submit" value="{{ 'General_Save'|translate }}" id="anonymousUserSettingsSubmit" class="submit"/>
 
     {% endif %}
+</div>
 {% endif %}
 {% endblock %}

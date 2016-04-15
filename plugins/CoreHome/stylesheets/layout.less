@@ -3,8 +3,9 @@
   padding: 0 15px;
   background-color: #37474F;
   height: 56px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 
-  /* Clear fix */
+ /* Clear fix */
   &:after {
     display: table;
     clear: both;
@@ -193,14 +194,8 @@
     float:left;
 
     #search {
-      padding: 16px 0 13px 8px;
-      height: 69px;
-      &:hover {
-        padding-left: 0;
-        .quick-access {
-          width: 224px;
-        }
-      }
+      padding: 8px 0 13px 8px;
+      height: 62px;
 
       .quick-access {
         z-index: 1000;
@@ -375,7 +370,7 @@
     background-color: @theme-color-background-base;
     height: auto;
     margin-bottom: 10px;
-    padding-top: 8px;
+    margin-top: 8px;
 
     .piwikTopControl {
       display: inline-block;
