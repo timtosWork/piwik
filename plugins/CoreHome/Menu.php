@@ -26,6 +26,8 @@ class Menu extends \Piwik\Plugin\Menu
             $menu->registerMenuIcon('General_Logout', 'icon-sign-out');
             $menu->addItem('General_Logout', null, array('module' => $module, 'action' => 'logout', 'idSite' => null), 1000, Piwik::translate('General_Logout'));
         }
+
+        $menu->addHtml('', '<div piwik-quick-access class="topBarElem"></div>', true, 995, 'Search');
     }
 
     public function configureAdminMenu(MenuAdmin $menu)
