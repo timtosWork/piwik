@@ -1,12 +1,8 @@
-<div class="entityAddContainer" style="display:none;">
+<div class="entityAddContainer entityTableContainer" style="display:none;">
     <div class='clear'></div>
+    <h2>{{ 'ScheduledReports_CreateAndScheduleReport'|translate }}</h2>
     <form id='addEditReport'>
-        <table class="dataTable entityTable">
-            <thead>
-            <tr class="first">
-                <th colspan="2">{{ 'ScheduledReports_CreateAndScheduleReport'|translate }}</th>
-            <tr>
-            </thead>
+        <table class="dataTable entityTable noRowHover">
             <tbody>
             <tr>
                 <td class="first">{{ 'General_Website'|translate }} </td>
@@ -167,10 +163,14 @@
         </table>
 
         <input type="hidden" id="report_idreport" value="">
-        <input type="submit" id="report_submit" name="submit" class="submit"/>
+
+        <div class="actionBar">
+            <input type="submit" id="report_submit" name="submit" class="submit"/>
+
+            <div class='entityCancel'>
+                {{ 'General_OrCancel'|translate("<a class='entityCancelLink'>","</a>")|raw }}
+            </div>
+        </div>
 
     </form>
-    <div class='entityCancel'>
-        {{ 'General_OrCancel'|translate("<a class='entityCancelLink'>","</a>")|raw }}
-    </div>
 </div>

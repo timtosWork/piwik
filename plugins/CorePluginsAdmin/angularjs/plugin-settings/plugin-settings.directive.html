@@ -17,7 +17,7 @@
     <div ng-repeat="settings in pluginSettings.settingsPerPlugin"
           id="pluginSettings">
 
-        <h2 id="{{ settings.pluginName }}" class="secondary">{{ settings.pluginName }}</h2>
+        <h3 id="{{ settings.pluginName }}" class="secondary">{{ settings.pluginName }}</h3>
 
         <div ng-repeat="setting in settings.settings">
             <div piwik-form-field="setting" all-settings="settings.settings"></div>

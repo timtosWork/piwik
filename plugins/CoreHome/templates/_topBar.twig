@@ -3,7 +3,7 @@
 
     {% macro menuItemLabel(label, icon) %}
         {% if icon is defined and icon and icon starts with 'icon-' %}
-            <span class="{{ icon|striptags }}"></span>
+            <span class="navbar-icon {{ icon|striptags }}"></span>
         {% else %}
             {{ label|translate }}
         {% endif %}

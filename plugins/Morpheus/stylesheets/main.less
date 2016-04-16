@@ -55,7 +55,6 @@ a:hover {
 
 .entityTable {
     .border-radius(0px)!important;
-    border: 1px solid @color-silver-l90 !important;
     tr {
         &.first {
             th {
@@ -397,12 +396,18 @@ table.dataTable {
 
     &.entityTable tr {
         td  {
-            background-color: @theme-color-background-base !important;
+            background-color: @theme-color-background-contrast !important;
         }
-        &.inactive-plugin td,
-        &:hover td {
-            background-color: @color-silver-l95 !important;
+        &.inactive-plugin td {
+          background-color: @theme-color-background-base !important;
         }
+
+    }
+
+    &.entityTable:not(.noRowHover) tr {
+      &:hover td {
+        background-color: @theme-color-background-base !important;
+      }
     }
 
     &.dataTableVizVisitorLog {

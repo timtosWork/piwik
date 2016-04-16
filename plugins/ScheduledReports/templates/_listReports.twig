@@ -1,4 +1,6 @@
-<div id='entityEditContainer'>
+<div id='entityEditContainer' class="entityTableContainer">
+    <h2 piwik-enriched-headline help-url="http://piwik.org/docs/email-reports/">{{ title }}</h2>
+
     <table class="dataTable entityTable">
         <thead>
         <tr>
@@ -89,16 +91,15 @@
         </tr>
     {% endfor %}
     {% endif %}
-
     </table>
 
-    {% if userLogin != 'anonymous' %}
-        <p>
+    <div class="actionBar">
+        {% if userLogin != 'anonymous' %}
             <button id="add-report" class="btn btn-lg btn-flat">
                 <span class="icon-add"></span>
                 {{ 'ScheduledReports_CreateAndScheduleReport'|translate }}
             </button>
-        </p>
-    {% endif %}
+        {% endif %}
+    </div>
 
 </div>
