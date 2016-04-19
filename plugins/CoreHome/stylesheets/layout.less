@@ -204,7 +204,8 @@
       .quick-access {
         z-index: 1000;
         position: absolute;
-        width: 224px;
+        width: 216px;
+        margin-left: 8px;
         input {
           height: 33px;
           font-size: 11px;
@@ -217,6 +218,7 @@
       background-color: @theme-color-menu-contrast-background;
       border-bottom: 1px solid @theme-color-menu-contrast-background;
       box-shadow: 0 1px 1px 0 rgba(0,0,0,.14),0 1px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.12);
+      padding-top: 20px;
 
       .menu-icon {
         padding-right: 13px;
@@ -389,13 +391,13 @@
 
 #root, #standalone, .ui-dialog, .ngdialog {
   .borderedControl {
-    background-color: @theme-color-background-contrast;
-    border: 1px solid @theme-color-background-tinyContrast;
+    background-color: @theme-color-background-base;
+    border: 0;
     transition: box-shadow 150ms linear;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.14),0 1px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.12);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     &.expanded,
     &:hover, &:focus {
-      box-shadow: 0 1px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+      background-color: @theme-color-background-contrast;
     }
   }
 }

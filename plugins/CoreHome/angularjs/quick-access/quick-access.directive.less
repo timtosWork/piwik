@@ -1,6 +1,12 @@
 .quick-access {
   position: relative;
 
+  &.expanded,
+  &.active {
+    input {
+      background-color: @theme-color-background-contrast !important;
+    }
+  }
   li {
     font-size: 11px;
   }
@@ -25,6 +31,7 @@
     border: 0 !important;
     box-shadow: 0 0 !important;
     border-radius: 0 !important;
+    background-color: @theme-color-background-base !important;
     font-size: 11px;
     &:focus {
       outline: none;
