@@ -197,22 +197,6 @@
     width: 224px;
     float:left;
 
-    #search {
-      padding: 8px 0 13px 0px;
-      height: 62px;
-
-      .quick-access {
-        z-index: 1000;
-        position: absolute;
-        width: 216px;
-        margin-left: 8px;
-        input {
-          height: 33px;
-          font-size: 11px;
-          padding: 10px 12px 10px 10px;
-        }
-      }
-    }
 
     .navbar {
       background-color: @theme-color-menu-contrast-background;
@@ -360,6 +344,19 @@
 
 #root {
   .top_controls {
+
+    .quick-access {
+      z-index: 1000;
+      position: absolute;
+      width: 208px;
+      margin-left: 16px;
+      input {
+        height: 33px;
+        font-size: 11px;
+        padding: 10px 12px 10px 10px;
+      }
+    }
+
     visibility: hidden;
     opacity: 0;
     .piwikTopControl {

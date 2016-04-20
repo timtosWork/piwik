@@ -1,8 +1,5 @@
 {% macro menu(menu, anchorlink, cssClass, currentModule, currentAction) %}
     <div id="secondNavBar" class="{{ cssClass }}">
-        <div id="search" ng-cloak>
-            <div piwik-quick-access class="borderedControl"></div>
-        </div>
         <ul class="navbar" aria-label="{{ 'CoreHome_MainNavigation'|translate|e('html_attr') }}" role="menu">
             {% for level1,level2 in menu %}
 
