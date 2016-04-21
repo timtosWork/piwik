@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'),
+       local('Roboto-Regular'),
+       url(../../../../libs/font-roboto/Roboto-Regular.woff2) format('woff2'),
+       url(../../../../libs/font-roboto/Roboto-Regular.woff) format('woff'),
+       url(../../../../libs/font-roboto/Roboto-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'),
+       local('Roboto-Bold'),
+       url(../../../../libs/font-roboto/Roboto-Bold.woff2) format('woff2'),
+       url(../../../../libs/font-roboto/Roboto-Bold.woff) format('woff'),
+       url(../../../../libs/font-roboto/Roboto-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Noto Sans'),
+  local('NotoSans'),
+  url(../../../../libs/font-noto/NotoSans-Regular.woff2) format('woff2'),
+  url(../../../../libs/font-noto/NotoSans-Regular.woff) format('woff'),
+  url(../../../../libs/font-noto/NotoSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Noto Sans'),
+  local('NotoSans'),
+  url(../../../../libs/font-noto/NotoSans-Bold.woff2) format('woff2'),
+  url(../../../../libs/font-noto/NotoSans-Bold.woff) format('woff'),
+  url(../../../../libs/font-noto/NotoSans-Bold.ttf) format('truetype');
+}
