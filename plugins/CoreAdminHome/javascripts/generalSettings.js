@@ -5,12 +5,39 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
-function sendGeneralSettingsAJAX() {
-    var enableBrowserTriggerArchiving = $('input[name=enableBrowserTriggerArchiving]:checked').val();
-    var enablePluginUpdateCommunication = $('input[name=enablePluginUpdateCommunication]:checked').val();
-    var releaseChannel = $('input[name=releaseChannel]:checked').val();
-    var todayArchiveTimeToLive = $('#todayArchiveTimeToLive').val();
+var CoreAdminHome = {
+    generalSettings: {
+        saveArchiveSettings: function () {
 
+            var enableBrowserTriggerArchiving = $('input[name=enableBrowserTriggerArchiving]:checked').val();
+            var todayArchiveTimeToLive = $('#todayArchiveTimeToLive').val();
+
+            var ajaxHandler = new ajaxHelper();
+            ajaxHandler.setLoadingElement();
+            ajaxHandler.addParams({
+                format: 'json2',
+                enableBrowserTriggerArchiving: enableBrowserTriggerArchiving,
+                todayArchiveTimeToLive: todayArchiveTimeToLive
+            }, 'POST');
+            ajaxHandler.addParams({
+                module: 'CoreAdminHome',
+                action: 'setArchiveSettings'
+            }, 'GET');
+            ajaxHandler.withTokenInUrl();
+            ajaxHandler.setCallback(function () {
+
+                var UI = require('piwik/UI');
+                var notification = new UI.Notification();
+                notification.show(_pk_translate('CoreAdminHome_SettingsSaveSuccess'), {context: 'success'});
+                notification.scrollToNotification();
+
+            });
+            ajaxHandler.send();
+        }
+    }
+};
+
+function sendGeneralSettingsAJAX() {
     var trustedHosts = [];
     $('input[name=trusted_host]').each(function () {
         trustedHosts.push($(this).val());
@@ -20,17 +47,6 @@ function sendGeneralSettingsAJAX() {
     ajaxHandler.setLoadingElement();
     ajaxHandler.addParams({
         format: 'json',
-        enableBrowserTriggerArchiving: enableBrowserTriggerArchiving,
-        enablePluginUpdateCommunication: enablePluginUpdateCommunication,
-        releaseChannel: releaseChannel,
-        todayArchiveTimeToLive: todayArchiveTimeToLive,
-        mailUseSmtp: isSmtpEnabled(),
-        mailPort: $('#mailPort').val(),
-        mailHost: $('#mailHost').val(),
-        mailType: $('#mailType').val(),
-        mailUsername: $('#mailUsername').val(),
-        mailPassword: $('#mailPassword').val(),
-        mailEncryption: $('#mailEncryption').val(),
         useCustomLogo: isCustomLogoEnabled(),
         trustedHosts: JSON.stringify(trustedHosts)
     }, 'POST');
@@ -42,21 +58,14 @@ function sendGeneralSettingsAJAX() {
     ajaxHandler.redirectOnSuccess();
     ajaxHandler.send(true);
 }
-function showSmtpSettings(value) {
-    $('#smtpSettings').toggle(value == 1);
-}
-function isSmtpEnabled() {
-    return $('input[name="mailUseSmtp"]:checked').val();
-}
 function showCustomLogoSettings(value) {
     if (value == 1) {
         // Refresh custom logo only if we're going to display it
         refreshCustomLogo();
     }
-    $('#logoSettings').toggle(value == 1);
 }
 function isCustomLogoEnabled() {
-    return $('input[name="useCustomLogo"]:checked').val();
+    return $('input[name="useCustomLogo"]:checked').size() ? '1' : 0;
 }
 
 function refreshCustomLogo() {
@@ -74,7 +83,6 @@ function refreshCustomLogo() {
 $(document).ready(function () {
     var originalTrustedHostCount = $('input[name=trusted_host]').length;
 
-    showSmtpSettings(isSmtpEnabled());
     showCustomLogoSettings(isCustomLogoEnabled());
     $('.generalSettingsSubmit').click(function () {
         var doSubmit = function () {
@@ -101,9 +109,6 @@ $(document).ready(function () {
         }
     });
 
-    $('input[name=mailUseSmtp]').click(function () {
-        showSmtpSettings($(this).val());
-    });
     $('input[name=useCustomLogo]').click(function () {
         showCustomLogoSettings($(this).val());
     });

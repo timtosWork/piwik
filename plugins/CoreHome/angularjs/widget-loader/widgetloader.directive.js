@@ -26,12 +26,14 @@
             restrict: 'A',
             transclude: true,
             scope: {
-                piwikWidgetLoader: '='
+                piwikWidgetLoader: '=',
+                widgetName: '@'
             },
             templateUrl: 'plugins/CoreHome/angularjs/widget-loader/widgetloader.directive.html?cb=' + piwik.cacheBuster,
             compile: function (element, attrs) {
 
                 return function (scope, element, attrs, ngModel) {
+                    scope.widgetName = attrs.widgetName;
                     var changeCounter = 0,
                         currentScope,
                         currentElement,

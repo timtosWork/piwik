@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-content">
+        <span class="card-title"
+              {% if rate is defined and rate and rate is true %}piwik-enriched-headline="{{ title|e('html_attr') }}"
+              {% elseif rate is defined and rate and rate %}piwik-enriched-headline="{{ rate|e('html_attr') }}"{% endif %}
+        >{{ title }}</span>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>

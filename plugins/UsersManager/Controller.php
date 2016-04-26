@@ -268,10 +268,15 @@ class Controller extends ControllerAdmin
 
         $view->languages = APILanguagesManager::getInstance()->getAvailableLanguageNames();
         $view->currentLanguageCode = LanguagesManager::getLanguageCodeForCurrentUser();
-        $view->currentTimeformat = LanguagesManager::uses12HourClockForCurrentUser();
+        $view->currentTimeformat = (int) LanguagesManager::uses12HourClockForCurrentUser();
         $view->ignoreCookieSet = IgnoreCookie::isIgnoreCookieFound();
         $view->piwikHost = Url::getCurrentHost();
         $this->setBasicVariablesView($view);
+
+        $view->timeFormats = array(
+                '1' => Piwik::translate('General_12HourClock'),
+                '0' => Piwik::translate('General_24HourClock')
+        );
 
         return $view->render();
     }

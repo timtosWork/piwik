@@ -4,9 +4,7 @@
 
 {% block content %}
 {% if isSuperUser %}
-<div class="content-card">
-    <h2 piwik-enriched-headline>{{ title }}</h2>
-
+<div piwik-content-block content-title="{{ title|e('html_attr') }}">
     {% if anonymousSites|length == 0 %}
 
         <div class="alert alert-info">

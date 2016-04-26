@@ -40,10 +40,13 @@
         {% endif %}
 
         <div class="pageWrap">
-
-            <div class="admin" id="content">
+            <a name="main"></a>
+            {% block notification %}
                 {% include "@CoreHome/_notifications.twig" %}
-                {% include "@CoreHome/_warningInvalidHost.twig" %}
+            {% endblock %}
+            {% include "@CoreHome/_warningInvalidHost.twig" %}
+
+            <div class="admin" id="content" ng-cloak>
 
                 <div class="ui-confirm" id="alert">
                     <h2></h2>

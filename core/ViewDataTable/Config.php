@@ -333,6 +333,8 @@ class Config
      */
     public $show_tag_cloud = true;
 
+    public $show_as_card = true;
+
     /**
      * Controls whether the user is allowed to export data as an RSS feed or not.
      */

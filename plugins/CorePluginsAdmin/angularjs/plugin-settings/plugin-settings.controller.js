@@ -29,7 +29,7 @@
             self.isLoading = false;
         });
 
-        this.save = function () {
+        this.save = function (settings) {
             var apiMethod = 'CorePluginsAdmin.setUserSettings';
             if ($scope.mode === 'admin') {
                 apiMethod = 'CorePluginsAdmin.setSystemSettings';
@@ -38,22 +38,20 @@
             this.isLoading = true;
 
             var values = {};
-            angular.forEach(this.settingsPerPlugin, function (settings) {
-                if (!values[settings.pluginName]) {
-                    values[settings.pluginName] = [];
-                }
+            if (!values[settings.pluginName]) {
+                values[settings.pluginName] = [];
+            }
 
-                angular.forEach(settings.settings, function (setting) {
-                    var value = setting.value;
-                    if (value === false) {
-                        value = '0';
-                    } else if (value === true) {
-                        value = '1';
-                    }
-                    values[settings.pluginName].push({
-                        name: setting.name,
-                        value: value
-                    });
+            angular.forEach(settings.settings, function (setting) {
+                var value = setting.value;
+                if (value === false) {
+                    value = '0';
+                } else if (value === true) {
+                    value = '1';
+                }
+                values[settings.pluginName].push({
+                    name: setting.name,
+                    value: value
                 });
             });
 

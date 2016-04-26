@@ -9,9 +9,12 @@
 
 namespace Piwik\Updates;
 
+use Piwik\Access;
 use Piwik\Common;
+use Piwik\Container\StaticContainer;
 use Piwik\Db;
 use Piwik\DbHelper;
+use Piwik\Option;
 use Piwik\Updater;
 use Piwik\Updates;
 use Piwik\Plugins\Dashboard;
@@ -41,6 +44,18 @@ class Updates_3_0_0_b1 extends Updates
     public function doUpdate(Updater $updater)
     {
         $updater->executeMigrationQueries(__FILE__, $this->getMigrationQueries($updater));
+        $this->migratePluginEmailUpdateSetting();
+    }
+
+    private function migratePluginEmailUpdateSetting()
+    {
+        $isEnabled = Option::get('enableUpdateCommunicationPlugins');
+
+        Access::doAsSuperUser(function () use ($isEnabled) {
+            $settings = StaticContainer::get('Piwik\Plugins\CoreUpdater\SystemSettings');
+            $settings->sendPluginUpdateEmail->setValue(!empty($isEnabled));
+            $settings->save();
+        });
     }
 
     /**

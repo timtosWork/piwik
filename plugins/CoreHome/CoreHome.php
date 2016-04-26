@@ -61,6 +61,7 @@ class CoreHome extends \Piwik\Plugin
     public function getStylesheetFiles(&$stylesheets)
     {
         $stylesheets[] = "libs/jquery/themes/base/jquery-ui.min.css";
+        $stylesheets[] = "libs/bower_components/materialize/dist/css/materialize.min.css";
         $stylesheets[] = "libs/jquery/stylesheets/jquery.jscrollpane.css";
         $stylesheets[] = "libs/jquery/stylesheets/scroll.less";
         $stylesheets[] = "libs/bower_components/ngDialog/css/ngDialog.min.css";
@@ -90,6 +91,7 @@ class CoreHome extends \Piwik\Plugin
     {
         $jsFiles[] = "libs/bower_components/jquery/dist/jquery.min.js";
         $jsFiles[] = "libs/bower_components/jquery-ui/ui/minified/jquery-ui.min.js";
+        $jsFiles[] = "libs/bower_components/materialize/dist/js/materialize.min.js";
         $jsFiles[] = "libs/jquery/jquery.browser.js";
         $jsFiles[] = "libs/jquery/jquery.truncate.js";
         $jsFiles[] = "libs/bower_components/jquery.scrollTo/jquery.scrollTo.min.js";
@@ -105,7 +107,6 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "libs/bower_components/ngDialog/js/ngDialog.min.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/piwikHelper.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/ajaxHelper.js";
-        $jsFiles[] = "plugins/Morpheus/javascripts/jquery.icheck.min.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/morpheus.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/layout.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/require.js";
@@ -149,6 +150,7 @@ class CoreHome extends \Piwik\Plugin
 
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/directive.module.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/attributes.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/field-condition.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/autocomplete-matched.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/focus-anywhere-but-here.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/ignore-click.js";
@@ -172,6 +174,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/menudropdown/menudropdown.directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/enrichedheadline/enrichedheadline.directive.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/content-block/content-block.directive.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/dialogtoggler/dialogtoggler.directive.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/dialogtoggler/dialogtoggler.controller.js";
@@ -203,6 +206,11 @@ class CoreHome extends \Piwik\Plugin
 
         $jsFiles[] = "plugins/CoreHome/angularjs/selector/selector.directive.js";
 
+        // we have to load these CoreAdminHome files here. If we loaded them in CoreAdminHome,
+        // there would be JS errors as CoreAdminHome is loaded first. Meaning it is loaded before
+        // any angular JS file is loaded etc.
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/smtp/mail-smtp.controller.js";
+
 
         // we have to load these CorePluginsAdmin files here. If we loaded them in CorePluginsAdmin,
         // there would be JS errors as CorePluginsAdmin is loaded first. Meaning it is loaded before
@@ -210,6 +218,8 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugin-settings/plugin-settings.controller.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugin-settings/plugin-settings.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/form-field/form-field.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/field/field.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.js";
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)

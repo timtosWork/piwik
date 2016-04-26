@@ -33,13 +33,10 @@
 </script>
 
 <div class="widgetize">
-<div class="content-card">
-    <h2 piwik-enriched-headline>{{ title }}</h2>
-
+<div piwik-content-block content-title="{{ title|e('html_attr') }}" feature="true">
     <p>With Piwik, you can export your Web Analytics reports on your blog, website, or intranet dashboard... in one click.</p>
 </div>
-<div class="content-card">
-    <h2>Authentication</h2>
+<div piwik-content-block content-title="Authentication">
     <p>
         If you want your widgets to be viewable by everybody, you first have to set the 'view' permissions
         to the anonymous user in the <a href='index.php?module=UsersManager' rel='noreferrer' target='_blank'>Users Management section</a>.
@@ -48,8 +45,7 @@
         <a href='{{ linkTo({'module':'API','action':'listAllAPI'}) }}' rel='noreferrer' target='_blank'>API page</a>) in the widget URL.
     </p>
 </div>
-<div class="content-card">
-    <h2>Widgetize dashboards</h2>
+<div piwik-content-block content-title="Widgetize dashboards">
     <p>You can also display the full Piwik dashboard in your application or website in an IFRAME
         (<a href='' rel='noreferrer' target='_blank' id='linkDashboardUrl'>see example</a>).
         The date parameter can be set to a specific calendar date, "today", or "yesterday". The period parameter can be set to "day", "week", "month", or
@@ -61,8 +57,7 @@
         <span id='exportAllWebsitesDashboard'></span>
     </p>
 </div>
-<div class="content-card">
-    <h2>Widgetize reports</h2>
+<div piwik-content-block content-title="Widgetize reports">
     <p>Select a report, and copy paste in your page the embed code below the widget:
 
     <div id="widgetPreview"></div>

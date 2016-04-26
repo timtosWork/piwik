@@ -2,6 +2,26 @@
     {% include visualizationTemplate %}
 {%- else -%}
 
+{% set isDataTableEmpty = (dataTable is empty or dataTableHasNoData|default(false)) %}
+
+{% if (properties.show_as_card and not isWidget)  %}
+<div class="card">
+<div class="card-content">
+    {% if properties.title  %}
+        <span class="card-title"
+              piwik-enriched-headline
+              inline-help="{{properties.documentation}}"
+        >{{ properties.title }}</span>
+    {% endif %}
+{% elseif properties.title and not isWidget %}
+    <h2>{{ properties.title }}</h2>
+{% endif %}
+
+{% if not properties.show_as_card and isDataTableEmpty %}
+    <div class="card">
+    <div class="card-content">
+{% endif %}
+
 {% set summaryRowId = constant('Piwik\\DataTable::ID_SUMMARY_ROW') %}{# ID_SUMMARY_ROW #}
 {% set isSubtable = javascriptVariablesToSet.idSubtable is defined and javascriptVariablesToSet.idSubtable != 0 %}
 <div class="dataTable {{ visualizationCssClass }} {{ properties.datatable_css_class|default('') }} {% if isSubtable %}subDataTable{% endif %}"
@@ -18,7 +38,7 @@
         {% if error is defined %}
             {{ error.message }}
         {% else %}
-            {% if dataTable is empty or dataTableHasNoData|default(false) %}
+            {% if isDataTableEmpty %}
                 <div class="pk-emptyDataTable">
                 {% if showReportDataWasPurgedMessage is defined and showReportDataWasPurgedMessage %}
                     {{ 'CoreHome_DataForThisReportHasBeenPurged'|translate(deleteReportsOlderThan) }}
@@ -38,4 +58,7 @@
     </div>
 </div>
 
+{% if properties.show_as_card or isDataTableEmpty %}
+    </div></div>
+{%- endif %}
 {%- endif %}

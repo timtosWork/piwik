@@ -140,8 +140,8 @@
 
                             $scope.timezones.push({
                                 group: timezoneGroup,
-                                code: code,
-                                label: label
+                                key: code,
+                                value: label
                             });
                         });
                     });

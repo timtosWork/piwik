@@ -5,14 +5,14 @@
 {% block content %}
 {% import 'macros.twig' as piwik %}
 {% if isSuperUser %}
-<div class="content-card">
-    <h2 piwik-enriched-headline
-        help-url="http://piwik.org/docs/privacy/">{{ title }}</h2>
+<div piwik-content-block
+     content-title="{{ title|e('html_attr') }}" rate="true" help-url="http://piwik.org/docs/privacy/">
     <p>{{ 'PrivacyManager_Teaser'|translate('<a href="#anonymizeIPAnchor">',"</a>",'<a href="#deleteLogsAnchor">',"</a>",'<a href="#optOutAnchor">',"</a>")|raw }}
         {{'PrivacyManager_SeeAlsoOurOfficialGuidePrivacy'|translate('<a href="http://piwik.org/privacy/" rel="noreferrer"  target="_blank">','</a>')|raw }}</p>
 </div>
-<div class="content-card">
-    <h2 id="anonymizeIPAnchor">{{ 'PrivacyManager_UseAnonymizeIp'|translate }}</h2>
+<div piwik-content-block
+     id="anonymizeIPAnchor"
+     content-title="{{ 'PrivacyManager_UseAnonymizeIp'|translate|e('html_attr') }}">
     <form method="post" action="{{ {'action':'saveSettings', 'form':'formMaskLength', 'token_auth':token_auth} | urlRewriteWithParameters }}" id="formMaskLength">
         <div id="anonymizeIpSettings" class="form-group">
             <label>
@@ -284,8 +284,9 @@
 
     {% endif %}
 </div>
-<div class="content-card">
-    <h2 id="DNT">{{ 'PrivacyManager_DoNotTrack_SupportDNTPreference'|translate }}</h2>
+<div piwik-content-block
+    id="DNT"
+    content-title="{{ 'PrivacyManager_DoNotTrack_SupportDNTPreference'|translate|e('html_attr') }}">
     <p>
         {% if dntSupport %}
             {% set action='deactivateDoNotTrack' %}
@@ -319,16 +320,17 @@
     </div>
 {% endif %}
 </div>
-<div class="content-card">
-<h2 id="optOutAnchor">{{ 'CoreAdminHome_OptOutForYourVisitors'|translate }}</h2>
-<p>
-    {{ 'CoreAdminHome_OptOutExplanation'|translate }}
-    {% set optOutUrl %}{{ piwikUrl }}index.php?module=CoreAdminHome&action=optOut&language={{ language }}{% endset %}
-    {% set iframeOptOut %}<iframe style="border: 0; height: 200px; width: 600px;" src="{{ optOutUrl }}"></iframe>{% endset %}
-</p>
-<pre>{{ iframeOptOut|e('html') }}</pre>
-<p>
-    {{ 'CoreAdminHome_OptOutExplanationBis'|translate("<a href='" ~ optOutUrl ~ "' rel='noreferrer' target='_blank'>","</a>")|raw }}
-</p>
+<div piwik-content-block
+     id="optOutAnchor"
+     content-title="{{ 'CoreAdminHome_OptOutForYourVisitors'|translate|e('html_attr') }}">
+    <p>
+        {{ 'CoreAdminHome_OptOutExplanation'|translate }}
+        {% set optOutUrl %}{{ piwikUrl }}index.php?module=CoreAdminHome&action=optOut&language={{ language }}{% endset %}
+        {% set iframeOptOut %}<iframe style="border: 0; height: 200px; width: 600px;" src="{{ optOutUrl }}"></iframe>{% endset %}
+    </p>
+    <pre>{{ iframeOptOut|e('html') }}</pre>
+    <p>
+        {{ 'CoreAdminHome_OptOutExplanationBis'|translate("<a href='" ~ optOutUrl ~ "' rel='noreferrer' target='_blank'>","</a>")|raw }}
+    </p>
 </div>
 {% endblock %}

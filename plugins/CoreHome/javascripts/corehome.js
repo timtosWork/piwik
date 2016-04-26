@@ -133,9 +133,14 @@
 
 }(jQuery));
 
+
 $( document ).ready(function() {
    $('.accessibility-skip-to-content').click(function(e){
         $('a[name="main"]').attr('tabindex', -1).focus();
         $(window).scrollTo($('a[name="main"]'));
     });
+
+    $(".button-collapse").sideNav();
+
+    $('select').material_select();
 });

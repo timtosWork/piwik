@@ -7,8 +7,7 @@
 {% block content %}
 
     {% if isSuperUser %}
-    <div class="content-card">
-        <h2>{{ title }}</h2>
+    <div piwik-content-block content-title="{{ title|e('html_attr') }}">
 
         <div class="form-group">
             <label>{{ 'MobileMessaging_Settings_LetUsersManageAPICredential'|translate }}</label>
@@ -34,21 +33,16 @@
     {% endif %}
 
     {% if accountManagedByCurrentUser and delegatedManagement %}
-    <div class="content-card">
-        <h2 piwik-enriched-headline
-                >{{ 'MobileMessaging_Settings_SMSProvider'|translate }}</h2>
+    <div piwik-content-block content-title="{{ 'MobileMessaging_Settings_SMSProvider'|translate|e('html_attr') }}" feature="true">
         To manage your SMS provider go to your <a href="{{ linkTo({'action':'userSettings'}) }}">personal mobile messaging settings</a>.
     </div>
     {% elseif accountManagedByCurrentUser %}
-    <div class="content-card">
-        <h2 piwik-enriched-headline
-                >{{ 'MobileMessaging_Settings_SMSProvider'|translate }}</h2>
-
+    <div piwik-content-block content-title="{{ 'MobileMessaging_Settings_SMSProvider'|translate|e('html_attr') }}" feature="true">
         {{ macro.manageSmsApi(credentialSupplied, creditLeft, smsProviders, provider) }}
     </div>
     {% endif %}
 
-    <div class="content-card">
+    <div piwik-content-block content-title="">
     {% import 'ajaxMacros.twig' as ajax %}
 
     <div style="margin-top:10px">

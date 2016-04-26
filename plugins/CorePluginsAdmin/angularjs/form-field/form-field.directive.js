@@ -12,9 +12,9 @@
 (function () {
     angular.module('piwikApp').directive('piwikFormField', piwikFormField);
 
-    piwikFormField.$inject = ['piwik'];
+    piwikFormField.$inject = ['piwik', '$timeout'];
 
-    function piwikFormField(piwik){
+    function piwikFormField(piwik, $timeout){
 
         return {
             restrict: 'A',
@@ -76,9 +76,17 @@
 
                 return function (scope, element, attrs) {
                     var field = scope.piwikFormField;
-                    
+
                     if (angular.isArray(field.defaultValue)) {
                         field.defaultValue = field.defaultValue.join(',');
+                    }
+
+                    if (field.type === 'boolean') {
+                        if (field.value && field.value > 0 && field.value !== '0') {
+                            field.value = true;
+                        } else {
+                            field.value = false;
+                        }
                     }
 
                     if (isSelectControl(field) && field.availableValues) {
@@ -91,6 +99,11 @@
                         var flatValues = [];
                         angular.forEach(availableValues, function (values, group) {
                             angular.forEach(values, function (value, key) {
+
+                                if (angular.isObject(value) && (value.group || value.key || value.value)){
+                                    flatValues.push(value);
+                                    return;
+                                }
 
                                 if (field.type === 'integer' && angular.isString(key)) {
                                     key = parseInt(key, 10);
@@ -121,6 +134,16 @@
                     }
 
                     scope.formField = field;
+
+                    $timeout(function () {
+                        if (isSelectControl(field)) {
+                            $(element).find('select').material_select();
+                        } else if (hasUiControl(field, 'textarea')) {
+                            $(element).find('textarea').trigger('autoresize');
+                        } else {
+                            Materialize.updateTextFields();
+                        }
+                    });
                 };
             }
         };

@@ -24,6 +24,10 @@
 
         return {
             link: function (scope, element, attrs) {
+                if (!attrs.piwikAttributes || !angular.isString(attrs.piwikAttributes)) {
+                    return;
+                }
+
                 attrs.piwikAttributes = JSON.parse(attrs.piwikAttributes);
 
                 if (angular.isObject(attrs.piwikAttributes)) {

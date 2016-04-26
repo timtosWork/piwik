@@ -55,7 +55,6 @@ class CoreAdminHome extends \Piwik\Plugin
         $jsFiles[] = "libs/bower_components/sprintf/dist/sprintf.min.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/piwikHelper.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/ajaxHelper.js";
-        $jsFiles[] = "plugins/Morpheus/javascripts/jquery.icheck.min.js";
         $jsFiles[] = "plugins/Morpheus/javascripts/morpheus.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/broadcast.js";
         $jsFiles[] = "plugins/CoreAdminHome/javascripts/generalSettings.js";
@@ -83,5 +82,6 @@ class CoreAdminHome extends \Piwik\Plugin
     {
         $translationKeys[] = 'CoreAdminHome_ProtocolNotDetectedCorrectly';
         $translationKeys[] = 'CoreAdminHome_ProtocolNotDetectedCorrectlySolution';
+        $translationKeys[] = 'CoreAdminHome_SettingsSaveSuccess';
     }
 }

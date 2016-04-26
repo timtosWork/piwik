@@ -1,61 +1,6 @@
 
- #header {
-  padding: 0 15px;
-  background-color: #37474F;
-  height: 56px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-
- /* Clear fix */
-  &:after {
-    display: table;
-    clear: both;
-    content: "";
-  }
-
-  .icon-menu-hamburger {
-     display: none;
-  }
-
-  #logo {
-  }
-
-  #topRightBar {
-    li {
-      display: inline-block;
-    }
-
-    .topBarElem {
-      color: #fff;
-      text-decoration: none;
-      padding: 19px 12px;
-      display: inline-block;
-      height: 100%;
-      transition: background-color 150ms linear;
-
-      &:hover, &:focus, &.active {
-        background-color: #455A64;
-      }
-
-      .menuDropdown {
-        color: @theme-color-text;
-        .title:after {
-          color: @theme-color-text;
-          border-top-color: @theme-color-text;
-        }
-      }
-    }
-
-    .navbar-right {
-        height: 56px;
-        position: absolute;
-        right: 10px;
-        font-size: 13px;
-
-        .navbar-icon {
-          font-size: 14px;
-        }
-    }
-  }
+.card-content > .row:last-child {
+  margin-bottom: 0;
 }
 
  .navbar {
@@ -109,22 +54,6 @@
   @media all and (max-width: 749px) {
     .pageWrap {
       margin-left: 0 !important;
-    }
-
-    #header {
-      min-height: 50px;
-      height: auto;
-    }
-
-    #topRightBar {
-      .navbar-right {
-        text-align: left;
-        margin-left: 2px;
-        display: inline-block;
-        position: relative;
-        height: auto;
-        min-height: 48px;
-      }
     }
 
     #navbar-collapse1 {
@@ -181,10 +110,6 @@
       float: left;
       cursor: pointer;
       font-size: 23px;
-    }
-
-    #logo {
-      display: none;
     }
 
   }

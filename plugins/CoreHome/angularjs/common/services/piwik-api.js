@@ -255,6 +255,9 @@ var hasBlockedContent = false;
 
         function post(getParams, _postParams_, options) {
             if (_postParams_) {
+                if (postParams && postParams.token_auth && !_postParams_.token_auth) {
+                    _postParams_.token_auth = postParams.token_auth;
+                }
                 postParams = _postParams_;
             }
 
