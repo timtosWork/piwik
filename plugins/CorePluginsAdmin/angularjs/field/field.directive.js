@@ -9,19 +9,19 @@
  * Usage:
  * <div piwik-field>
  *
- *     eg <div piwik-field type="select"
+ *     eg <div piwik-field ui-control="select"
  * title="{{ 'SitesManager_Timezone'|translate }}"
  * value="site.timezone"
  * options="timezones"
  * inline-help="test"
  * description=""
- * inline-help=""
  * introduction=""
  * name=""
  * autocomplete="off"
  * disabled="true"></div>
  *
- * You can combine it with "field-condition=''"
+ * You can combine it with "field-condition=''".
+ * We do not use type= attribute here as it would match some CSS from input type=radio etc
  */
 (function () {
     angular.module('piwikApp').directive('piwikField', piwikField);
@@ -45,7 +45,8 @@
                 inlineHelp: '@',
                 disabled: '=',
                 autocomplete: '@',
-                condition: '@'
+                condition: '@',
+                varType: '@'
             },
             template: '<div piwik-form-field="field"></div>',
             link: function(scope, elm, attrs, ctrl) {
@@ -53,9 +54,16 @@
                     return;
                 }
 
+                // load init value
+                if (scope.field.value !== undefined && scope.field.value !== null) {
+                    ctrl.$setViewValue(scope.field.value);
+                } else if (ctrl.$viewValue) {
+                    scope.field.value = ctrl.$viewValue;
+                }
+
                 // view -> model
                 scope.$watch('field.value', function (val, oldVal) {
-                    if (val !== oldVal) {
+                    if (val !== oldVal && val !== ctrl.$viewValue) {
                         ctrl.$setViewValue(val);
                     }
                 });
@@ -64,14 +72,15 @@
                 ctrl.$render = function() {
                     scope.field.value = ctrl.$viewValue;
                 };
-
-                // load init value
-                ctrl.$setViewValue(scope.field.value);
             },
             controller: function ($scope) {
                 var field = {};
                 field.uiControl = $scope.uicontrol;
-                if (field.uiControl === 'checkbox') {
+                if ($scope.varType) {
+                    field.type = $scope.varType;
+                } else if (field.uiControl === 'multiselect') {
+                    field.type = 'array';
+                } else if (field.uiControl === 'checkbox') {
                     field.type = 'boolean';
                 } else {
                     field.type = 'string';
@@ -93,6 +102,12 @@
                 }
 
                 $scope.field = field;
+
+                $scope.$watch('options', function (val, oldVal) {
+                    if (val !== oldVal) {
+                        $scope.field.availableValues = val;
+                    }
+                });
             }
         };
     }

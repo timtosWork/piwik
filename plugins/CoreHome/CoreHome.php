@@ -210,6 +210,7 @@ class CoreHome extends \Piwik\Plugin
         // there would be JS errors as CoreAdminHome is loaded first. Meaning it is loaded before
         // any angular JS file is loaded etc.
         $jsFiles[] = "plugins/CoreAdminHome/angularjs/smtp/mail-smtp.controller.js";
+        $jsFiles[] = "plugins/CoreAdminHome/angularjs/branding/branding.controller.js";
 
 
         // we have to load these CorePluginsAdmin files here. If we loaded them in CorePluginsAdmin,
@@ -217,6 +218,7 @@ class CoreHome extends \Piwik\Plugin
         // any angular JS file is loaded etc.
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugin-settings/plugin-settings.controller.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/plugin-settings/plugin-settings.directive.js";
+        $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/form/form.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/form-field/form-field.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/field/field.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.js";

@@ -86,7 +86,7 @@
 {% if isGeneralSettingsAdminEnabled %}
     <div piwik-content-block content-title="{{ 'CoreAdminHome_EmailServerSettings'|translate|e('html_attr') }}">
 
-        <div ng-controller="MailSmtpController as mailSettings">
+        <div piwik-form ng-controller="MailSmtpController as mailSettings">
             <div piwik-field uicontrol="checkbox" name="mailUseSmtp"
                  ng-model="mailSettings.enabled"
                  title="{{ 'General_UseSMTPServerForEmail'|translate|e('html_attr') }}"
@@ -146,65 +146,77 @@
     </div>
 {% endif %}
 <div piwik-content-block content-title="{{ 'CoreAdminHome_BrandingSettings'|translate|e('html_attr') }}">
-    <p>{{ 'CoreAdminHome_CustomLogoHelpText'|translate }}</p>
 
-    {% set help -%}
-        {% set giveUsFeedbackText %}"{{ 'General_GiveUsYourFeedback'|translate }}"{% endset %}
-        {{ 'CoreAdminHome_CustomLogoFeedbackInfo'|translate(giveUsFeedbackText,"<a href='?module=CorePluginsAdmin&action=plugins' rel='noreferrer' target='_blank'>","</a>")|raw }}
-    {%- endset %}
+    <div piwik-form ng-controller="BrandingController as brandingSettings">
 
-    <div piwik-field uicontrol="checkbox" name="useCustomLogo"
-         title="{{ 'CoreAdminHome_UseCustomLogo'|translate|e('html_attr') }}"
-         value="{% if branding.use_custom_logo == 1 %}1{% endif %}" inline-help="{{ help|e('html_attr') }}">
-    </div>
+        <p>{{ 'CoreAdminHome_CustomLogoHelpText'|translate }}</p>
 
-    <div id="logoSettings" field-condition="useCustomLogo">
-        <form id="logoUploadForm" method="post" enctype="multipart/form-data" action="index.php?module=CoreAdminHome&format=json&action=uploadCustomLogo">
-            {% if fileUploadEnabled %}
-                <input type="hidden" name="token_auth" value="{{ token_auth }}"/>
+        {% set help -%}
+            {% set giveUsFeedbackText %}"{{ 'General_GiveUsYourFeedback'|translate }}"{% endset %}
+            {{ 'CoreAdminHome_CustomLogoFeedbackInfo'|translate(giveUsFeedbackText,"<a href='?module=CorePluginsAdmin&action=plugins' rel='noreferrer' target='_blank'>","</a>")|raw }}
+        {%- endset %}
 
-                {% if logosWriteable %}
-                    <div class="alert alert-warning uploaderror" style="display:none;">
-                        {{ 'CoreAdminHome_LogoUploadFailed'|translate }}
-                    </div>
+        <div piwik-field uicontrol="checkbox" name="useCustomLogo"
+             ng-model="brandingSettings.enabled"
+             ng-change="brandingSettings.toggleCustomLogo()"
+             title="{{ 'CoreAdminHome_UseCustomLogo'|translate|e('html_attr') }}"
+             value="{% if branding.use_custom_logo == 1 %}1{% endif %}" inline-help="{{ help|e('html_attr') }}">
+        </div>
 
-                    <div piwik-field uicontrol="file" name="customLogo"
-                         title="{{ 'CoreAdminHome_LogoUpload'|translate|e('html_attr') }}"
-                         inline-help="{{ 'CoreAdminHome_LogoUploadHelp'|translate("JPG / PNG / GIF", 110)|e('html_attr') }}">
-                    </div>
+        <div id="logoSettings" field-condition="useCustomLogo">
+            <form id="logoUploadForm" method="post" enctype="multipart/form-data" action="index.php?module=CoreAdminHome&format=json&action=uploadCustomLogo">
+                {% if fileUploadEnabled %}
+                    <input type="hidden" name="token_auth" value="{{ token_auth }}"/>
 
-                    <div class="row">
-                        <div class="col s12">
-                            <img data-src="{{ pathUserLogo }}" data-src-exists="{{ hasUserLogo ? '1':'0' }}" id="currentLogo" style="max-height: 150px"/>
+                    {% if logosWriteable %}
+                        <div class="alert alert-warning uploaderror" style="display:none;">
+                            {{ 'CoreAdminHome_LogoUploadFailed'|translate }}
                         </div>
-                    </div>
 
-                    <div piwik-field uicontrol="file" name="customFavicon"
-                         title="{{ 'CoreAdminHome_FaviconUpload'|translate|e('html_attr') }}"
-                         inline-help="{{ 'CoreAdminHome_LogoUploadHelp'|translate("JPG / PNG / GIF", 16)|e('html_attr') }}">
-                    </div>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <img data-src="{{ pathUserFavicon }}" data-src-exists="{{ hasUserFavicon ? '1':'0' }}" id="currentFavicon" width="16" height="16"/>
+                        <div piwik-field uicontrol="file" name="customLogo"
+                             ng-change="brandingSettings.updateLogo()"
+                             ng-model="brandingSettings.customLogo"
+                             title="{{ 'CoreAdminHome_LogoUpload'|translate|e('html_attr') }}"
+                             inline-help="{{ 'CoreAdminHome_LogoUploadHelp'|translate("JPG / PNG / GIF", 110)|e('html_attr') }}">
                         </div>
-                    </div>
 
+                        <div class="row">
+                            <div class="col s12">
+                                <img data-src="{{ pathUserLogo }}" data-src-exists="{{ hasUserLogo ? '1':'0' }}"
+                                     id="currentLogo" style="max-height: 150px"/>
+                            </div>
+                        </div>
+
+                        <div piwik-field uicontrol="file" name="customFavicon"
+                             ng-change="brandingSettings.updateLogo()"
+                             ng-model="brandingSettings.customFavicon"
+                             title="{{ 'CoreAdminHome_FaviconUpload'|translate|e('html_attr') }}"
+                             inline-help="{{ 'CoreAdminHome_LogoUploadHelp'|translate("JPG / PNG / GIF", 16)|e('html_attr') }}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12">
+                                <img data-src="{{ pathUserFavicon }}" data-src-exists="{{ hasUserFavicon ? '1':'0' }}"
+                                     id="currentFavicon" width="16" height="16"/>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <div class="alert alert-warning">
+                            {{ 'CoreAdminHome_LogoNotWriteableInstruction'
+                                |translate("<code>"~pathUserLogoDirectory~"</code><br/>", pathUserLogo ~", "~ pathUserLogoSmall ~", "~ pathUserLogoSVG ~"")|raw }}
+                        </div>
+                    {% endif %}
                 {% else %}
                     <div class="alert alert-warning">
-                        {{ 'CoreAdminHome_LogoNotWriteableInstruction'
-                            |translate("<code>"~pathUserLogoDirectory~"</code><br/>", pathUserLogo ~", "~ pathUserLogoSmall ~", "~ pathUserLogoSVG ~"")|raw }}
+                        {{ 'CoreAdminHome_FileUploadDisabled'|translate("file_uploads=1") }}
                     </div>
                 {% endif %}
-            {% else %}
-                <div class="alert alert-warning">
-                    {{ 'CoreAdminHome_FileUploadDisabled'|translate("file_uploads=1") }}
-                </div>
-            {% endif %}
-        </form>
-    </div>
+            </form>
+        </div>
 
-    <input type="submit" value="{{ 'General_Save'|translate }}" class="btn generalSettingsSubmit"/>
+        <div ng-click="brandingSettings.save()" piwik-save-button></div>
+    </div>
 </div>
 
 <div piwik-content-block content-title="{{ 'CoreAdminHome_TrustedHostSettings'|translate|e('html_attr') }}">
@@ -228,7 +240,8 @@
                 {% for hostIdx, host in trustedHosts %}
                     <li>
                         <input name="trusted_host" type="text" value="{{ host }}"/>
-                        <a href="#" class="remove-trusted-host btn-flat btn-lg" title="{{ 'General_Delete'|translate }}">
+                        <a href="#" onclick="return CoreAdminHome.generalSettings.removeTrustedHost(event);"
+                           class="remove-trusted-host btn-flat btn-lg" title="{{ 'General_Delete'|translate }}">
                             <span class="icon-minus"></span>
                         </a>
                     </li>
@@ -238,11 +251,13 @@
             <div class="add-trusted-host">
                 <input type="text" placeholder="{{ 'CoreAdminHome_AddNewTrustedHost'|translate|e('html_attr') }}" readonly/>
 
-                <a href="#" class="btn btn-flat btn-lg" title="{{ 'General_Add'|translate }}">
+                <a href="#" onclick="return CoreAdminHome.generalSettings.addTrustedHost(event);" class="btn btn-flat btn-lg" title="{{ 'General_Add'|translate }}">
                     <span class="icon-add"></span>
                 </a>
 
             </div>
+
+            <div onclick="CoreAdminHome.generalSettings.saveTrustedHosts()" piwik-save-button></div>
         {% endif %}
     </div>
 

@@ -86,30 +86,6 @@ class Controller extends ControllerAdmin
         return $view->render();
     }
 
-    public function setGeneralSettings()
-    {
-        Piwik::checkUserHasSuperUserAccess();
-        $response = new ResponseBuilder(Common::getRequestVar('format'));
-        try {
-            $this->checkTokenInUrl();
-
-            $this->saveGeneralSettings();
-
-            $customLogo = new CustomLogo();
-            if (Common::getRequestVar('useCustomLogo', '0')) {
-                $customLogo->enable();
-            } else {
-                $customLogo->disable();
-            }
-
-            $toReturn = $response->getResponse();
-        } catch (Exception $e) {
-            $toReturn = $response->getResponseException($e);
-        }
-
-        return $toReturn;
-    }
-
     public function setMailSettings()
     {
         Piwik::checkUserHasSuperUserAccess();
@@ -136,33 +112,6 @@ class Controller extends ControllerAdmin
             Config::getInstance()->mail = $mail;
 
             Config::getInstance()->forceSave();
-
-            $toReturn = $response->getResponse();
-        } catch (Exception $e) {
-            $toReturn = $response->getResponseException($e);
-        }
-
-        return $toReturn;
-    }
-
-    public function setArchiveSettings()
-    {
-        Piwik::checkUserHasSuperUserAccess();
-
-        if (!self::isGeneralSettingsAdminEnabled()) {
-            // General settings + Beta channel + SMTP settings is disabled
-            return '';
-        }
-
-        $response = new ResponseBuilder('json2');
-        try {
-            $this->checkTokenInUrl();
-
-            // General Setting
-            $enableBrowserTriggerArchiving = Common::getRequestVar('enableBrowserTriggerArchiving');
-            $todayArchiveTimeToLive = Common::getRequestVar('todayArchiveTimeToLive');
-            Rules::setBrowserTriggerArchiving((bool)$enableBrowserTriggerArchiving);
-            Rules::setTodayArchiveTimeToLive($todayArchiveTimeToLive);
 
             $toReturn = $response->getResponse();
         } catch (Exception $e) {
@@ -239,22 +188,6 @@ class Controller extends ControllerAdmin
     public static function isGeneralSettingsAdminEnabled()
     {
         return (bool) Config::getInstance()->General['enable_general_settings_admin'];
-    }
-
-    private function saveGeneralSettings()
-    {
-        if (!self::isGeneralSettingsAdminEnabled()) {
-            // General settings + Beta channel + SMTP settings is disabled
-            return;
-        }
-
-        // update trusted host settings
-        $trustedHosts = Common::getRequestVar('trustedHosts', false, 'json');
-        if ($trustedHosts !== false) {
-            Url::saveTrustedHostnameInConfig($trustedHosts);
-        }
-
-        Config::getInstance()->forceSave();
     }
 
     private function handleGeneralSettingsAdmin($view)

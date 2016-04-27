@@ -11,14 +11,14 @@
             </div>
 
             <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+                <input class="file-path validate" ng-model="formField.value" type="text">
             </div>
         </div>
 
         <div ng-if="formField.uiControl == 'select'">
             <select name="{{ formField.name }}"
                     ng-model="formField.value"
-                    ng-options="t.key as t.value group by t.group for t in formField.availableValues"
+                    ng-options="t.key as t.value group by t.group for t in formField.availableOptions"
                     piwik-attributes="{{formField.uiControlAttributes}}">
             </select>
             <label for="{{ formField.name }}" ng-bind-html="formField.title"></label>
@@ -28,7 +28,7 @@
             <select multiple
                     name="{{ formField.name }}"
                     ng-model="formField.value"
-                    ng-options="t.key as t.value for t in formField.availableValues"
+                    ng-options="t.key as t.value for t in formField.availableOptions"
                     piwik-attributes="{{formField.uiControlAttributes}}">
             </select>
             <label for="{{ formField.name }}" ng-bind-html="formField.title"></label>
@@ -54,7 +54,7 @@
         </div>
 
         <p ng-if="formField.uiControl == 'radio'"
-                ng-repeat="(key,value) in formField.availableValues"
+                ng-repeat="(key,value) in formField.availableOptions"
                 class="radio">
             <input ng-model="formField.value"
                    ng-value="key"
@@ -111,7 +111,7 @@
             <div ng-show="formField.description"
                   class='form-description'>{{ formField.description }}</div>
 
-            <span ng-bind-html="formField.inlineHelp"></span>
+            <span class="inline-help" ng-bind-html="formField.inlineHelp"></span>
 
             <span ng-show="formField.defaultValue && formField.uiControl != 'checkbox' && formField.uiControl != 'radio'">
                 <br />

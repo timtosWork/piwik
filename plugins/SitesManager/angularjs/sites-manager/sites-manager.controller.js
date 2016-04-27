@@ -13,6 +13,8 @@
 
         var translate = $filter('translate');
 
+        $scope.globalSettings = {};
+
         var init = function () {
 
             $scope.period = piwik.broadcast.getValueFromUrl('period');
