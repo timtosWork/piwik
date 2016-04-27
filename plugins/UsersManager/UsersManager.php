@@ -93,8 +93,9 @@ class UsersManager extends \Piwik\Plugin
     public function getJsFiles(&$jsFiles)
     {
         $jsFiles[] = "plugins/UsersManager/javascripts/usersManager.js";
-        $jsFiles[] = "plugins/UsersManager/javascripts/usersSettings.js";
         $jsFiles[] = "plugins/UsersManager/javascripts/giveViewAccess.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/personal-settings/personal-settings.controller.js";
+        $jsFiles[] = "plugins/UsersManager/angularjs/personal-settings/anonymous-settings.controller.js";
     }
 
     /**

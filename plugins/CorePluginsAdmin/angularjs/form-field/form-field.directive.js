@@ -74,30 +74,60 @@
                     return false;
                 }
 
-                function formatAvailableValues(availableValues, fieldType)
+                function formatAvailableValues(field)
                 {
-                    if (!hasGroupedValues(availableValues)) {
-                        availableValues = {'': availableValues};
+                    if (!field.availableValues) {
+                        return;
                     }
 
                     var flatValues = [];
-                    angular.forEach(availableValues, function (values, group) {
-                        angular.forEach(values, function (value, key) {
 
-                            if (angular.isObject(value) && (value.group || value.key || value.value)){
+                    if (hasUiControl(field, 'radio')) {
+                        angular.forEach(field.availableValues, function (value, key) {
+
+                            if (angular.isObject(value) && typeof value.key !== 'undefined'){
                                 flatValues.push(value);
                                 return;
                             }
 
-                            if (fieldType === 'integer' && angular.isString(key)) {
+                            if (field.type === 'integer' && angular.isString(key)) {
                                 key = parseInt(key, 10);
                             }
 
-                            flatValues.push({group: group, key: key, value: value});
+                            flatValues.push({key: key, value: value});
                         });
-                    });
 
-                    return flatValues;
+                        return flatValues;
+                    }
+
+                    if (isSelectControl(field)) {
+                        var availableValues = field.availableValues;
+
+                        if (!hasGroupedValues(availableValues)) {
+                            availableValues = {'': availableValues};
+                        }
+
+                        var flatValues = [];
+                        angular.forEach(availableValues, function (values, group) {
+                            angular.forEach(values, function (value, key) {
+
+                                if (angular.isObject(value) && typeof value.key !== 'undefined'){
+                                    flatValues.push(value);
+                                    return;
+                                }
+
+                                if (field.type === 'integer' && angular.isString(key)) {
+                                    key = parseInt(key, 10);
+                                }
+
+                                flatValues.push({group: group, key: key, value: value});
+                            });
+                        });
+
+                        return flatValues;
+                    }
+
+                    return field.availableValues;
                 }
 
                 return function (scope, element, attrs) {
@@ -115,16 +145,14 @@
                         }
                     }
 
-                    if (isSelectControl(field) && field.availableValues) {
-                        field.availableOptions = formatAvailableValues(field.availableValues, field.type);
-                    } else {
-                        field.availableOptions = field.availableValues;
-                    }
+                    // we are setting availableOptions and not availableValues again. Otherwise when watching the scope
+                    // availableValues and in the watch change availableValues could trigger lots of more watch events
+                    field.availableOptions = formatAvailableValues(field);
 
                     field.showField = true;
 
                     var inlineHelpNode;
-                    if (field.inlineHelp.indexOf('#') === 0) {
+                    if (field.inlineHelp && field.inlineHelp.indexOf('#') === 0) {
                         inlineHelpNode = field.inlineHelp;
                         field.inlineHelp = ' '; // we make sure inline help will be shown
                     }
@@ -148,11 +176,10 @@
 
                     scope.$watch('formField.availableValues', function (val, oldVal) {
                         if (val !== oldVal) {
+                            scope.formField.availableOptions = formatAvailableValues(scope.formField);
+
                             if (isSelectControl(scope.formField)) {
-                                scope.formField.availableOptions = formatAvailableValues(scope.formField.availableValues, scope.formField.type);
                                 element.find('select').material_select();
-                            } else {
-                                scope.formField.availableOptions = scope.formField.availableValues;
                             }
                         }
                     });

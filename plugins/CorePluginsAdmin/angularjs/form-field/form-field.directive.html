@@ -54,16 +54,17 @@
         </div>
 
         <p ng-if="formField.uiControl == 'radio'"
-                ng-repeat="(key,value) in formField.availableOptions"
+                ng-repeat="radioModel in formField.availableOptions"
                 class="radio">
             <input ng-model="formField.value"
-                   ng-value="key"
+                   ng-value="radioModel.key"
                    type="radio"
-                   id="{{ formField.name + key }}"
+                   id="{{ formField.name + radioModel.key }}"
                    name="{{ formField.name }}"
+                   ng-disabled="radioModel.disabled"
                    piwik-attributes="{{formField.uiControlAttributes}}"
             >
-            <label for="{{ formField.name + key }}">{{ value }}</label>
+            <label for="{{ formField.name + radioModel.key }}">{{ radioModel.value }}</label>
         </p>
 
         <div ng-if="formField.uiControl == 'checkbox'" class="checkbox">

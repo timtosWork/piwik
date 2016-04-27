@@ -78,6 +78,12 @@
                         }
                     });
 
+                    if (ngModel) {
+                        ngModel.$render = function() {
+                            scope.selectedSite = ngModel.$viewValue;
+                        };
+                    }
+
                     scope.$watch('selectedSite', function (newValue) {
                         if (ngModel) {
                             ngModel.$setViewValue(newValue);
