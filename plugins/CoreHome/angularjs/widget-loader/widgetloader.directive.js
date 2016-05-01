@@ -73,6 +73,7 @@
                             }
                         });
 
+                        url += '&showtitle=1';
                         url += '&random=' + parseInt(Math.random() * 10000);
 
                         return '?' + url;

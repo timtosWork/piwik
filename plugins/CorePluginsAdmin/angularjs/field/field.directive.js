@@ -46,7 +46,9 @@
                 disabled: '=',
                 autocomplete: '@',
                 condition: '@',
-                varType: '@'
+                varType: '@',
+                autofocus: '@',
+                tabindex: '@'
             },
             template: '<div piwik-form-field="field"></div>',
             link: function(scope, elm, attrs, ctrl) {
@@ -94,11 +96,14 @@
                 field.inlineHelp = $scope.inlineHelp;
                 field.title = $scope.title;
                 field.uiControlAttributes = {};
-                if (!!$scope.disabled) {
-                    field.uiControlAttributes['disabled'] = 'disabled';
-                }
-                if ($scope.autocomplete) {
-                    field.uiControlAttributes['autocomplete'] = $scope.autocomplete;
+
+                var i = 0, attribute;
+                var attributes = ['disabled', 'autocomplete', 'tabindex', 'autofocus'];
+                for (i; i < attributes.length; i++) {
+                    attribute = attributes[i];
+                    if (!!$scope[attribute]) {
+                        field.uiControlAttributes[attribute] = $scope[attribute];
+                    }
                 }
 
                 $scope.field = field;

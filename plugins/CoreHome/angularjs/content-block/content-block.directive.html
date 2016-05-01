@@ -2,7 +2,8 @@
     <div class="card-content">
         <span ng-if="contentTitle && !feature && !helpUrl" class="card-title">{{contentTitle}}</span>
         <span ng-if="contentTitle && (feature || helpUrl)" class="card-title"
-              piwik-enriched-headline feature-name="{{feature}}" help-url="{{helpUrl}}">{{contentTitle}}</span>
+              piwik-enriched-headline feature-name="{{feature}}" help-url="{{helpUrl}}">
+            {{contentTitle}}</span>
         <div ng-transclude>
         </div>
     </div>

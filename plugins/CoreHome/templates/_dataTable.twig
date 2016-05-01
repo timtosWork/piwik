@@ -4,7 +4,7 @@
 
 {% set isDataTableEmpty = (dataTable is empty or dataTableHasNoData|default(false)) %}
 
-{% if (properties.show_as_card and not isWidget)  %}
+{% if (properties.show_as_card and showTitle and not isWidget)  %}
 <div class="card">
 <div class="card-content">
     {% if properties.title  %}
@@ -13,7 +13,7 @@
               inline-help="{{properties.documentation}}"
         >{{ properties.title }}</span>
     {% endif %}
-{% elseif properties.title and not isWidget %}
+{% elseif properties.title and showTitle and not isWidget %}
     <h2>{{ properties.title }}</h2>
 {% endif %}
 

@@ -132,13 +132,13 @@ table.entityTable tr td a:hover {
   background: @theme-color-background-base;
   .border-radius(0px);
   .dropdown-body {
-    background:@theme-color-background-base;
+    background:@theme-color-background-contrast;
     padding: 8px 19px 0;
     .border-radius(0px);
     border-top-width: 0px;
   }
   &:hover .dropdown-body {
-    background:@theme-color-background-base;
+    background:@theme-color-background-contrast;
   }
   .segmentationContainer {
     > span > strong {
@@ -535,6 +535,8 @@ div.sparkline {
             -webkit-box-shadow: none;
             -moz-box-shadow:    none;
             box-shadow:         none;
+            box-sizing: border-box;
+            margin: 0;
         }
     }
 }

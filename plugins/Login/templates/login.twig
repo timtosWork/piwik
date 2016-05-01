@@ -65,7 +65,11 @@
         {% endif %}
     </div>
 
-    <section class="loginSection">
+    <section class="loginSection row">
+        <div class="col s12 m6 push-m3 l4 push-l4">
+
+        {% embed 'contentBlock.twig' with {'title': 'Login_LogIn'|translate} %}
+        {% block content %}
 
         {# untrusted host warning #}
         {% if (isValidHost is defined and invalidHostMessage is defined and isValidHost == false) %}
@@ -86,48 +90,68 @@
                 {% endif %}
             </div>
             <form {{ form_data.attributes|raw }} ng-non-bindable>
-                <h1>{{ 'Login_LogIn'|translate }}</h1>
-                <fieldset class="inputs">
-                    <input type="text" name="form_login" id="login_form_login" class="input" value="" size="20"
-                           tabindex="10"
-                           placeholder="{{ 'General_Username'|translate }}" autofocus="autofocus"/>
-                    <input type="password" name="form_password" id="login_form_password" class="input" value="" size="20"
-                           tabindex="20"
-                           placeholder="{{ 'General_Password'|translate }}"/>
-                    <input type="hidden" name="form_nonce" id="login_form_nonce" value="{{ nonce }}"/>
-                </fieldset>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="text" name="form_login" id="login_form_login" class="input" value="" size="20"
+                               tabindex="10" autofocus="autofocus"/>
+                        <label for="login_form_login"><i class="icon-user icon"></i> {{ 'General_Username'|translate }}</label>
+                    </div>
+                </div>
 
-                <fieldset class="actions">
-                    <input name="form_rememberme" type="checkbox" id="login_form_rememberme" value="1" tabindex="90"
-                           {% if form_data.form_rememberme.value %}checked="checked" {% endif %}/>
-                    <label for="login_form_rememberme">{{ 'Login_RememberMe'|translate }}</label>
-                    <input class="submit" id='login_form_submit' type="submit" value="{{ 'Login_LogIn'|translate }}"
-                           tabindex="100"/>
-                </fieldset>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="password" name="form_password" id="login_form_password" class="input" value="" size="20"
+                               tabindex="20" />
+                        <input type="hidden" name="form_nonce" id="login_form_nonce" value="{{ nonce }}"/>
+                        <label for="login_form_password"><i class="icon-locked icon"></i> {{ 'General_Password'|translate }}</label>
+                    </div>
+                </div>
+
+                <div class="row actions">
+                    <div class="col s12">
+                        <input name="form_rememberme" type="checkbox" id="login_form_rememberme" value="1" tabindex="90"
+                               {% if form_data.form_rememberme.value %}checked="checked" {% endif %}/>
+                        <label for="login_form_rememberme">{{ 'Login_RememberMe'|translate }}</label>
+                        <input class="submit btn" id='login_form_submit' type="submit" value="{{ 'Login_LogIn'|translate }}"
+                               tabindex="100"/>
+                    </div>
+                </div>
+
             </form>
+
             <form id="reset_form" style="display:none;" ng-non-bindable>
-                <fieldset class="inputs">
-                    <input type="text" name="form_login" id="reset_form_login" class="input" value="" size="20"
-                           tabindex="10"
-                           placeholder="{{ 'Login_LoginOrEmail'|translate }}"/>
-                    <input type="hidden" name="form_nonce" id="reset_form_nonce" value="{{ nonce }}"/>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="text" name="form_login" id="reset_form_login" class="input" value="" size="20"
+                               tabindex="10"/>
+                        <input type="hidden" name="form_nonce" id="reset_form_nonce" value="{{ nonce }}"/>
+                        <label for="reset_form_login">{{ 'Login_LoginOrEmail'|translate }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="password" name="form_password" id="reset_form_password" class="input" value="" size="20"
+                               tabindex="20" autocomplete="off"/>
+                        <label for="reset_form_password">{{ 'General_Password'|translate }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="password" name="form_password_bis" id="reset_form_password_bis" class="input" value=""
+                               size="20" tabindex="30" autocomplete="off"/>
+                        <label for="reset_form_password_bis">{{ 'Login_PasswordRepeat'|translate }}</label>
+                    </div>
+                </div>
 
-                    <input type="password" name="form_password" id="reset_form_password" class="input" value="" size="20"
-                           tabindex="20" autocomplete="off"
-                           placeholder="{{ 'General_Password'|translate }}"/>
-
-                    <input type="password" name="form_password_bis" id="reset_form_password_bis" class="input" value=""
-                           size="20" tabindex="30" autocomplete="off"
-                           placeholder="{{ 'Login_PasswordRepeat'|translate }}"/>
-                </fieldset>
-
-                <fieldset class="actions">
-                    <span class="loadingPiwik" style="display:none;">
-                        <img alt="Loading" src="plugins/Morpheus/images/loading-blue.gif"/>
-                    </span>
-                    <input class="submit" id='reset_form_submit' type="submit"
-                           value="{{ 'General_ChangePassword'|translate }}" tabindex="100"/>
-                </fieldset>
+                <div class="row actions">
+                    <div class="col s12">
+                        <span class="loadingPiwik" style="display:none;">
+                            <img alt="Loading" src="plugins/Morpheus/images/loading-blue.gif"/>
+                        </span>
+                        <input class="submit btn" id='reset_form_submit' type="submit"
+                               value="{{ 'General_ChangePassword'|translate }}" tabindex="100"/>
+                    </div>
+                </div>
 
                 <input type="hidden" name="module" value="{{ loginModule }}"/>
                 <input type="hidden" name="action" value="resetPassword"/>
@@ -148,9 +172,14 @@
                 </p>
             {% endif %}
             <div id="lost_password_instructions" style="display:none;">
-                <p class="message">{{ 'Login_ResetPasswordInstructions'|translate }}</p>
+                <div class="row"><div class="s12">
+                <p>{{ 'Login_ResetPasswordInstructions'|translate }}</p>
+                </div></div>
             </div>
         {% endif %}
+
+        {% endblock %}
+        {% endembed %}
     </section>
 
 {% endblock %}

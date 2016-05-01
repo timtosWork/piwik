@@ -6,12 +6,6 @@
 {% set headline %}{{ 'General_AboutPiwikX'|translate(piwikVersion) }}{% endset %}
 
 {% block content %}
-    <style type="text/css">
-        #root .top_controls {
-            min-height: 10px;
-        }
-    </style>
-
     <div id="feedback-faq" class="admin">
         {% embed 'contentBlock.twig' with {'title': headline, 'rate': 'General_Help'|translate} %}
             {% block content %}

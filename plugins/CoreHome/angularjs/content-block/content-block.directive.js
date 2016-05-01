@@ -24,6 +24,7 @@
                 contentTitle: '@',
                 feature: '@',
                 helpUrl: '@',
+                helpText: '@'
             },
             templateUrl: 'plugins/CoreHome/angularjs/content-block/content-block.directive.html?cb=' + piwik.cacheBuster,
             controllerAs: 'contentBlock',
