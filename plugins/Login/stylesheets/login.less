@@ -1,13 +1,6 @@
 /* LOGO
 ***********************/
 #loginPage {
-    #logo {
-        float: none;
-        margin: 100px auto 0 auto;
-        width: 240px;
-        position: relative;
-    }
-
     #logo .description {
         position: absolute;
         left: -40px !important;
@@ -33,12 +26,14 @@
         left: -35px;
     }
 
-    #logo img {
-        border: 0;
-        vertical-align: bottom;
-        height: auto;
-        width: 240px;
-        margin-right: 20px;
+    #logo {
+        img.default-piwik-logo {
+            width: 82px;
+        }
+
+        img {
+            max-height: 30px;
+        }
     }
 
     #message_container {
