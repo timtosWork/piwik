@@ -64,7 +64,8 @@
                    ng-disabled="radioModel.disabled"
                    piwik-attributes="{{formField.uiControlAttributes}}"
             >
-            <label for="{{ formField.name + radioModel.key }}">{{ radioModel.value }}</label>
+            <label for="{{ formField.name + radioModel.key }}">{{ radioModel.value }}
+                <span class="form-description">{{ radioModel.description }}</span></label>
         </p>
 
         <div ng-if="formField.uiControl == 'checkbox'" class="checkbox">

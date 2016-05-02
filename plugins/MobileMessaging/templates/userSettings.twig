@@ -14,7 +14,7 @@
     {% if accountManagedByCurrentUser and delegatedManagement %}
         {% embed 'contentBlock.twig' with {'title': title, 'rate': true} %}
             {% block content %}
-                {{ macro.manageSmsApi(credentialSupplied, creditLeft, smsProviders, provider) }}
+                {{ macro.manageSmsApi(credentialSupplied, creditLeft, smsProviderOptions, smsProviders, provider) }}
             {% endblock %}
         {% endembed %}
     {% endif %}
@@ -23,6 +23,7 @@
 {% embed 'contentBlock.twig' with {'title': ('MobileMessaging_PhoneNumbers'|translate)} %}
     {% block content %}
     {% if not credentialSupplied %}
+        <p>
         {% if accountManagedByCurrentUser and delegatedManagement %}
             {{ 'MobileMessaging_Settings_CredentialNotProvided'|translate }}
         {% elseif accountManagedByCurrentUser %}
@@ -30,7 +31,10 @@
         {% else %}
             {{ 'MobileMessaging_Settings_CredentialNotProvidedByAdmin'|translate }}
         {% endif %}
+        </p>
     {% else %}
+
+
         {{ 'MobileMessaging_Settings_PhoneNumbers_Help'|translate }}
         <span class="form-group">
             <div class="form-help">
@@ -58,7 +62,7 @@
                   style="margin-left:50px;">{{ 'MobileMessaging_Settings_PhoneNumber'|translate }}</span></span>
 
         <br/><br/>
-
+        
         {{ 'MobileMessaging_Settings_PhoneNumbers_CountryCode_Help'|translate }}
 
         <select id="countries">

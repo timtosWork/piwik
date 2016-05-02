@@ -93,13 +93,25 @@ class Controller extends ControllerAdmin
             $view->provider = $mobileMessagingAPI->getSMSProvider();
             $view->creditLeft = $mobileMessagingAPI->getCreditLeft();
         }
+        $view->delegateManagementOptions = array(
+            array('key' => '0',
+                  'value' => Piwik::translate('General_No'),
+                  'description' => Piwik::translate('General_Default') . '. ' .
+                                   Piwik::translate('MobileMessaging_Settings_LetUsersManageAPICredential_No_Help')),
+            array('key' => '1',
+                  'value' => Piwik::translate('General_Yes'),
+                  'description' => Piwik::translate('MobileMessaging_Settings_LetUsersManageAPICredential_Yes_Help'))
+        );
 
         $providers = array();
+        $providerOptions = array();
         foreach (SMSProvider::findAvailableSmsProviders() as $provider) {
             $providers[$provider->getId()] = $provider->getDescription();
+            $providerOptions[$provider->getId()] = $provider->getId();
         }
 
         $view->smsProviders = $providers;
+        $view->smsProviderOptions = $providerOptions;
 
         // construct the list of countries from the lang files
         $countries = array();

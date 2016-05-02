@@ -1,4 +1,4 @@
-{% macro manageSmsApi(credentialSupplied, creditLeft, smsProviders, provider) %}
+{% macro manageSmsApi(credentialSupplied, creditLeft, smsProviderOptions, smsProviders, provider) %}
     {% if credentialSupplied %}
         {{ 'MobileMessaging_Settings_CredentialProvided'|translate(provider) }}
         {{ creditLeft }}
@@ -7,21 +7,21 @@
     {% else %}
         {{ 'MobileMessaging_Settings_PleaseSignUp'|translate }}
     {% endif %}
-    <div id='accountForm' {% if credentialSupplied %}style='display: none;'{% endif %}>
+    <div id='accountForm' {% if credentialSupplied %}style='display: none;'{% endif %} piwik-form>
         <br/>
-        {{ 'MobileMessaging_Settings_SMSProvider'|translate }}
-        <select id='smsProviders'>
-            {% for smsProvider, description in smsProviders %}
-                <option value='{{ smsProvider }}'>
-                    {{ smsProvider }}
-                </option>
-            {% endfor %}
-        </select>
 
-        {{ 'MobileMessaging_Settings_APIKey'|translate }}
-        <input size='25' id='apiKey'/>
+        <div piwik-field uicontrol="select" name="smsProviders"
+             options="{{ smsProviderOptions|json_encode }}"
+             title="{{ 'MobileMessaging_Settings_SMSProvider'|translate|e('html_attr') }}"
+             value="{{ provider }}">
+        </div>
 
-        <input type='submit' value='{{ 'General_Save'|translate }}' id='apiAccountSubmit' class='btn'/>
+        <div piwik-field uicontrol="text" name="apiKey"
+             title="{{ 'MobileMessaging_Settings_APIKey'|translate|e('html_attr') }}"
+             value="">
+        </div>
+
+        <div piwik-save-button id='apiAccountSubmit'></div>
 
         {% for smsProvider, description in smsProviders %}
             <div class='providerDescription' id='{{ smsProvider }}'>
