@@ -73,6 +73,7 @@
                             }
                         });
 
+                        // TODO set showtitle=1 only if not widget mode. This will also make _dataTable.twig simpler
                         url += '&showtitle=1';
                         url += '&random=' + parseInt(Math.random() * 10000);
 
