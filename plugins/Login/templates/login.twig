@@ -8,9 +8,6 @@
     {{ parent() }}
 
     <script type="text/javascript" src="libs/bower_components/jquery-placeholder/jquery.placeholder.js"></script>
-    <!--[if lt IE 9]>
-    <script src="libs/bower_components/html5shiv/dist/html5shiv.min.js"></script>
-    <![endif]-->
     <script type="text/javascript" src="libs/jquery/jquery.smartbanner.js"></script>
     <link rel="stylesheet" type="text/css" href="libs/jquery/stylesheets/jquery.smartbanner.css" />
 
@@ -46,17 +43,13 @@
                     <a href="http://piwik.org" title="{{ linkTitle }}">
                 {% endif %}
                 {% if hasSVGLogo %}
-                    <img src='{{ logoSVG }}' title="{{ linkTitle }}" alt="Piwik" class="ie-hide"/>
+                    <img src='{{ logoSVG }}' title="{{ linkTitle }}" alt="Piwik"/>
                 {% else %}
                     <img src='{{ logoLarge }}' title="{{ linkTitle }}" alt="Piwik" />
                 {% endif %}
 
                 {% if isCustomLogo == false %}
                     </a>
-                    <div class="description">
-                        <a href="http://piwik.org" title="{{ linkTitle }}">{{ linkTitle }}</a>
-                        <div class="arrow"></div>
-                    </div>
                 {% endif %}
 
             </span>
@@ -90,7 +83,7 @@
             <form {{ form_data.attributes|raw }} ng-non-bindable>
                 <div class="row">
                     <div class="col s12 input-field">
-                        <input type="text" name="form_login" id="login_form_login" class="input" value="" size="20"
+                        <input type="text" name="form_login" placeholder="" id="login_form_login" class="input" value="" size="20"
                                tabindex="10" autofocus="autofocus"/>
                         <label for="login_form_login"><i class="icon-user icon"></i> {{ 'General_Username'|translate }}</label>
                     </div>
@@ -98,7 +91,7 @@
 
                 <div class="row">
                     <div class="col s12 input-field">
-                        <input type="password" name="form_password" id="login_form_password" class="input" value="" size="20"
+                        <input type="password" placeholder="" name="form_password" id="login_form_password" class="input" value="" size="20"
                                tabindex="20" />
                         <input type="hidden" name="form_nonce" id="login_form_nonce" value="{{ nonce }}"/>
                         <label for="login_form_password"><i class="icon-locked icon"></i> {{ 'General_Password'|translate }}</label>

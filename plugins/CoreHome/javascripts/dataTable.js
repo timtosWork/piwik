@@ -281,6 +281,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         else {
             dataTableSel.find('object').remove();
             dataTableSel.replaceWith(content);
+            piwikHelper.compileAngularComponents(content);
         }
 
         content.trigger('piwik:dataTableLoaded');
@@ -320,7 +321,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         self.handleRelatedReports(domElem);
         self.handleTriggeredEvents(domElem);
         self.handleColumnHighlighting(domElem);
-        self.handleExpandFooter(domElem);
         self.setFixWidthToMakeEllipsisWork(domElem);
         self.handleSummaryRow(domElem);
     },
@@ -988,50 +988,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         self.graphViewStartingThreads = 0;
         self.graphViewStartingKeep = false; //show keep flag
 
-        //define collapsed icons
-        $('.tableGraphCollapsed a', domElem)
-            .each(function (i) {
-                if (self.jsViewDataTable == $(this).attr('data-footer-icon-id')) {
-                    self.currentGraphViewIcon = i;
-                    self.graphViewEnabled = true;
-                }
-            })
-            .each(function (i) {
-                if (self.currentGraphViewIcon != i) $(this).hide();
-            });
-
-        $('.tableGraphCollapsed', domElem).hover(
-            function () {
-                //Graph icon onmouseover
-                if (self.graphViewStartingThreads > 0) return self.graphViewStartingKeep = true; //exit if animation is not finished
-                $(this).addClass('tableIconsGroupActive');
-                $('a', this).each(function (i) {
-                    if (self.currentGraphViewIcon != i || self.graphViewEnabled) {
-                        self.graphViewStartingThreads++;
-                    }
-                    if (self.currentGraphViewIcon != i) {
-                        //show other icons
-                        $(this).show('fast', function () {self.graphViewStartingThreads--});
-                    }
-                    else if (self.graphViewEnabled) {
-                        self.graphViewStartingThreads--;
-                    }
-                });
-                self.exportToFormatHide(domElem);
-            },
-            function() {
-                //Graph icon onmouseout
-                if (self.graphViewStartingKeep) return self.graphViewStartingKeep = false; //exit while icons animate
-                $('a', this).each(function (i) {
-                    if (self.currentGraphViewIcon != i) {
-                        //hide other icons
-                        $(this).hide('fast');
-                    }
-                });
-                $(this).removeClass('tableIconsGroupActive');
-            }
-        );
-
         //handle exportToFormat icons
         self.exportToFormat = null;
         $('.exportToFormatIcons a', domElem).click(function () {
@@ -1090,6 +1046,11 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 var period = self.param.period;
 
                 var formatsUseDayNotRange = piwik.config.datatable_export_range_as_day.toLowerCase();
+                if (!format) {
+                    // eg export as image has no format
+                    return;
+                }
+
                 if (formatsUseDayNotRange.indexOf(format.toLowerCase()) != -1
                     && self.param.period == 'range') {
                     period = 'day';
@@ -1192,10 +1153,10 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             $('.dataTableFlatten', domElem).parent().remove();
         }
 
-        var ul = $('div.tableConfiguration ul', domElem);
+        var ul = $('ul.tableConfiguration', domElem);
         function hideConfigurationIcon() {
             // hide the icon when there are no actions available or we're not in a table view
-            $('div.tableConfiguration', domElem).remove();
+            $('.dropdownConfigureIcon', domElem).remove();
         }
 
         if (ul.find('li').size() == 0) {
@@ -1206,22 +1167,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         var icon = $('a.tableConfigurationIcon', domElem);
         icon.click(function () { return false; });
         var iconHighlighted = false;
-
-        ul.find('li:first').addClass('first');
-        ul.find('li:last').addClass('last');
-        ul.prepend('<li class="firstDummy"></li>');
-
-        // open and close the box
-        var open = function () {
-            self.exportToFormatHide(domElem, true);
-            ul.addClass('open');
-            icon.css('opacity', 1);
-        };
-        var close = function () {
-            ul.removeClass('open');
-            icon.css('opacity', icon.hasClass('highlighted') ? .85 : .6);
-        };
-        $('div.tableConfiguration', domElem).hover(open, close);
 
         var generateClickCallback = function (paramName, callbackAfterToggle, setParamCallback) {
             return function () {
@@ -1342,7 +1287,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         if (iconHighlighted) {
             icon.addClass('highlighted');
         }
-        close();
 
         if (!iconHighlighted
             && !(self.param.viewDataTable == 'table'
@@ -1350,21 +1294,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
             || self.param.viewDataTable == 'tableGoals')) {
             hideConfigurationIcon();
             return;
-        }
-
-        // fix a css bug of ie7
-        if (document.all && !window.opera && window.XMLHttpRequest) {
-            window.setTimeout(function () {
-                open();
-                var width = 0;
-                ul.find('li').each(function () {
-                    width = Math.max(width, $(this).width());
-                });
-                if (width > 0) {
-                    ul.find('li').width(width);
-                }
-                close();
-            }, 400);
         }
     },
 
@@ -1436,65 +1365,6 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         $("th:first-child", domElem).addClass('label');
         $("td:first-child", domElem).addClass('label');
         $("tr td", domElem).addClass('column');
-    },
-
-    handleExpandFooter: function (domElem) {
-        var footerIcons = $('.dataTableFooterIcons', domElem);
-
-        if (!footerIcons.length) {
-            return;
-        }
-
-        if (this.isWithinDialog(domElem)) {
-            $('.dataTableFeatures', domElem).addClass('expanded');
-        }
-
-        var self = this;
-        function toggleFooter(event)
-        {
-            if (self.isWithinDialog(domElem)) {
-                return;
-            }
-
-            var icons = $('.dataTableFooterIcons', domElem);
-            $('.dataTableFeatures', domElem).toggleClass('expanded');
-
-            if (event && event.doNotNotifyChange) {
-                return;
-            }
-
-            self.notifyWidgetParametersChange(domElem, {
-                isFooterExpandedInDashboard: icons.is(':visible')
-            });
-        }
-
-        var moveNode = $('.datatableFooterMessage', domElem);
-        if (!moveNode.length) {
-            moveNode = $('.datatableRelatedReports', domElem);
-        }
-
-        footerIcons.after(moveNode);
-
-        $('.expandDataTableFooterDrawer', domElem).after(footerIcons);
-
-        var controls   = $('.controls', domElem);
-        var footerWrap = $('.dataTableFooterWrap', domElem);
-        if (controls.length && footerWrap.length) {
-            $('.dataTableFooterWrap', domElem).before(controls);
-        }
-
-        var loadingPiwikBelow = $('.loadingPiwikBelow', domElem);
-        if (loadingPiwikBelow.length) {
-            loadingPiwikBelow.insertBefore(moveNode);
-        }
-
-        if (this.param.isFooterExpandedInDashboard) {
-            toggleFooter({doNotNotifyChange: true});
-        }
-
-        var $nodes = $('.foldDataTableFooterDrawer, .expandDataTableFooterDrawer', domElem);
-        $nodes.off('click');
-        $nodes.on('click', toggleFooter);
     },
 
     handleColumnHighlighting: function (domElem) {

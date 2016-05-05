@@ -107,7 +107,6 @@ class Config
         'show_footer',
         'show_footer_icons',
         'show_all_views_icons',
-        'show_active_view_icon',
         'show_related_reports',
         'show_limit_control',
         'show_search',
@@ -253,11 +252,6 @@ class Config
      * Controls whether graph and non core viewDataTable footer icons are shown or not.
      */
     public $show_all_views_icons = true;
-
-    /**
-     * Controls whether to display a tiny upside-down caret over the currently active view icon.
-     */
-    public $show_active_view_icon = true;
 
     /**
      * Related reports are listed below a datatable view. When clicked, the original report will

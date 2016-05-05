@@ -3,7 +3,7 @@
 
     <div class="row" ng-if="!site.editMode">
 
-        <div class="col-md-3">
+        <div class="col m3">
             <h4>{{ site.name }}</h4>
             <ul>
                 <li><span class="title">{{ 'General_Id'|translate }}:</span> {{ site.idsite }}</li>
@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-4">
+        <div class="col m4">
             <ul>
                 <li><span class="title">{{ 'SitesManager_Timezone'|translate }}:</span> {{ site.timezone }}</li>
                 <li><span class="title">{{ 'SitesManager_Currency'|translate }}:</span> {{ site.currency }}</li>
@@ -28,7 +28,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-4">
+        <div class="col m4">
             <ul>
                 <li>
                     <span class="title">{{ 'SitesManager_Urls'|translate }}</span>:
@@ -48,7 +48,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-1 text-right">
+        <div class="col m1 text-right">
             <ul>
                 <li>
                     <button class="btn btn-flat btn-lg" ng-click="editSite()" title="{{ 'General_Edit'|translate }}">

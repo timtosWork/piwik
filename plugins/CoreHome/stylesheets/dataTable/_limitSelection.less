@@ -11,13 +11,12 @@
 }
 
 .limitSelection > div {
-  border: 1px solid #DFDFDF;
-  border-radius: 4px;
-  background: url(plugins/Morpheus/images/sort_subtable_desc_light.png) no-repeat right 2px;
+  border: 1px solid #ccc;
+  background: url(plugins/Morpheus/images/sort_subtable_desc_light.png) no-repeat right 5px;
   padding: 0 14px 0 4px;
   display: block;
   width: 41px;
-  height: 26px;
+  height: 30px;
   cursor: pointer;
 }
 
@@ -28,33 +27,30 @@
 }
 
 .limitSelection.visible > div {
-  border-radius: 0 0 4px 4px;
   background-image: url(plugins/Morpheus/images/sort_subtable_asc_light.png)
 }
 
 .limitSelection > ul {
   margin-top: 1px;
   overflow: visible;
-  background-color: @theme-color-background-base;
 }
 
 .limitSelection > ul > li {
   cursor: pointer;
   padding: 0 10px 0 4px;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: bold;
-  height: 20px;
-  margin-top: -40px;
-  background-color: @theme-color-background-base;
-  border-left: 1px solid #DFDFDF;
-  border-right: 1px solid #DFDFDF;
+  height: 24px;
+  margin-top: -48px;
+  background-color: @theme-color-background-contrast;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   vertical-align: middle;
   text-align: right;
 }
 
 .limitSelection > ul > li.last {
-  border-top: 1px solid #DFDFDF;
-  border-radius: 4px 4px 0 0;
+  border-top: 1px solid #ccc;
 }
 
 .limitSelection > ul > li:hover {

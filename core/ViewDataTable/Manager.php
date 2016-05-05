@@ -400,7 +400,7 @@ class Manager
     {
         // add graph views
         $graphViewIcons = array(
-            'class'   => 'tableGraphViews tableGraphCollapsed',
+            'class'   => 'tableGraphViews',
             'buttons' => array(),
         );
 

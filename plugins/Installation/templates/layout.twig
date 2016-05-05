@@ -55,7 +55,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col s3">
             <ul class="list-group">
                 {% for stepId,stepName in allStepsTitle %}
                     {% if currentStepId > stepId %}
@@ -69,7 +69,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-sm-9 content">
+        <div class="col s9 content">
             {% set nextButton %}
                 <p class="next-step">
                     <a class="btn btn-lg" href="{{ linkTo({'action':nextModuleName, 'token_auth':null, 'method':null }) }}">

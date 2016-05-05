@@ -85,6 +85,8 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "plugins/CoreHome/angularjs/notification/notification.directive.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/quick-access/quick-access.directive.less";
         $stylesheets[] = "plugins/CoreHome/angularjs/selector/selector.directive.less";
+        $stylesheets[] = "plugins/CoreHome/angularjs/reporting-page/reportingpage.directive.less";
+        $stylesheets[] = "plugins/CoreHome/angularjs/widget-bydimension-container/widget-bydimension-container.directive.less";
     }
 
     public function getJsFiles(&$jsFiles)
@@ -158,6 +160,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/focusif.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/dialog.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/translate.js";
+        $jsFiles[] = "plugins/CoreHome/angularjs/common/directives/dropdown-button.js";
 
         $jsFiles[] = "plugins/CoreHome/angularjs/piwikApp.js";
         $jsFiles[] = "plugins/CoreHome/angularjs/anchorLinkFix.js";
@@ -222,6 +225,7 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/form-field/form-field.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/field/field.directive.js";
         $jsFiles[] = "plugins/CorePluginsAdmin/angularjs/save-button/save-button.directive.js";
+        $jsFiles[] = "plugins/CoreHome/javascripts/iframeResizer.min.js";
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)

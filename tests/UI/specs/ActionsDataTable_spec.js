@@ -30,6 +30,7 @@ describe("ActionsDataTable", function () {
             page.click('tr.subDataTable:eq(2)');
             page.evaluate(function () {
                 $('.foldDataTableFooterDrawer').click(); // open the footer icons controls
+                // TODO we need to change something here?
             });
         }, done);
     });
