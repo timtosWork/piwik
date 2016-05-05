@@ -10,7 +10,6 @@
     {% if properties.title %}
         <span class="card-title"
               piwik-enriched-headline
-              inline-help="{{properties.documentation}}"
         >{{ properties.title }}</span>
     {% endif %}
 {% elseif properties.title and showTitle and not isWidget %}

@@ -501,17 +501,39 @@ td.cellSubDataTable .loadingPiwik {
   }
 
   .dropdown-button {
+    border: 0;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    outline: 0;
+    width: 36px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-decoration: none !important;
+    text-align: center;
     color: #adadad;
-    font-size: 15px;
+    font-size: 16px;
     &:hover {
-      color: #adadad;
-      text-decoration: none;
+      color: #333;
+      background-color: @theme-color-background-base;
+      text-decoration: none !important;
     }
-    &.btn-floating:hover {
-      background-color: @theme-color-background-contrast;
-      text-decoration: none;
+
+    .icon-export {
+      margin-top: 6px;
+      display: block;
+    }
+
+    .icon-more-verti {
+      font-size: 18px;
     }
   }
+}
+
+.dataTablePaginationControl {
+  margin: 4px 0 8px;
 }
 
 .theWidgetContent {

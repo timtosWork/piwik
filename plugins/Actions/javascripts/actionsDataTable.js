@@ -300,6 +300,8 @@
 
             content.trigger('piwik:dataTableLoaded');
 
+            piwikHelper.compileAngularComponents(content);
+
             piwikHelper.lazyScrollTo(content[0], 400);
 
             return content;

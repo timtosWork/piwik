@@ -281,12 +281,12 @@ $.extend(DataTable.prototype, UIControl.prototype, {
         else {
             dataTableSel.find('object').remove();
             dataTableSel.replaceWith(content);
-            piwikHelper.compileAngularComponents(content);
         }
 
         content.trigger('piwik:dataTableLoaded');
 
         piwikHelper.lazyScrollTo(content[0], 400);
+        piwikHelper.compileAngularComponents(content);
 
         return content;
     },

@@ -12,7 +12,7 @@
             {% endif %}
 
             {% if properties.show_pagination_control %}
-                <div>
+                <div class="dataTablePaginationControl">
                     <span class="dataTablePrevious">&lsaquo; {% if clientSideParameters.dataTablePreviousIsFirst is defined %}{{ 'General_First'|translate }}{% else %}{{ 'General_Previous'|translate }}{% endif %} </span>
                     <span class="dataTableNext">{{ 'General_Next'|translate }} &rsaquo;</span>
                 </div>
@@ -24,7 +24,7 @@
             {% endif %}
 
             {% if properties.show_search %}
-                <div>
+                <div class="dataTableSearch">
                     <label for="widgetSearch_{{ properties.report_id }}" style="display:none;"> {{ 'General_Search'|translate }} {{ visualization.config.translations.label|default('') }}</label>
                     <input id="widgetSearch_{{ properties.report_id }}" type="text" class="searchInput" length="15" />
                     <input type="submit" value="{{ 'General_Search'|translate }}" />

@@ -1,24 +1,30 @@
-{% if properties.show_footer_icons %}
+ {% set randomIdForDropdown = random(999999) %}
 
-    {% set randomIdForDropdown = random(999999) %}
+<div class="dataTableIcons">
 
-    <div class="dataTableIcons">
-        <a class='dropdown-button btn-flat btn-floating'
-           style="text-align: center;" href='#' title="{{ 'General_ExportThisReport'|translate|e('html_attr') }}"
+    <a class='dropdown-button'
+       onclick="$(this).closest('.dataTable').find('.reportDocumentation').toggle(); return false;"
+        href='javascript:;' title="{{ properties.documentation|e('html_attr') }}"
+        ><span class="icon-help"></span></a>
+
+    {% if properties.show_footer and properties.show_footer_icons %}
+
+        <a class='dropdown-button'
+            href='javascript:;' title="{{ 'General_ExportThisReport'|translate|e('html_attr') }}"
            data-activates='dropdownExport{{ randomIdForDropdown }}'><span class="icon-export"></span></a>
 
-        <a class='dropdown-button btn-flat btn-floating dropdownConfigureIcon'
-           style="text-align: center;" href='#'
+        <a class='dropdown-button dropdownConfigureIcon'
+            href='javascript:;'
            data-activates='dropdownConfigure{{ randomIdForDropdown }}'><span class="icon-configure"></span></a>
 
         {% if isPluginLoaded('Annotations') and not properties.hide_annotations_view %}
-            <a class='btn-flat btn-floating annotationView'
-               style="text-align: center;" href='#' title="{{ 'Annotations_Annotations'|translate|e('html_attr') }}"
+            <a class='btn-flat annotationView'
+                href='javascript:;' title="{{ 'Annotations_Annotations'|translate|e('html_attr') }}"
             ><span class="icon-annotation"></span></a>
         {% endif %}
 
-        <a class='dropdown-button btn-flat btn-floating'
-           style="text-align: center;" href='#'
+        <a class='dropdown-button'
+            href='javascript:;'
            data-activates='dropdownVisualizations{{ randomIdForDropdown }}'><span class="icon-more-verti"></span></a>
 
         <ul id='dropdownVisualizations{{ randomIdForDropdown }}' class='dropdown-content dataTableFooterIcons'>
@@ -60,7 +66,7 @@
             {% endif %}
             {% if properties.show_export_as_image_icon %}
                 <li><span id="dataTableFooterExportAsImageIcon">
-                        <a class="tableIcon" href="#" onclick="$(this).closest('.dataTable').find('div.jqplot-target').trigger('piwikExportAsImage'); return false;">
+                        <a class="tableIcon" href="javascript:;" onclick="$(this).closest('.dataTable').find('div.jqplot-target').trigger('piwikExportAsImage'); return false;">
                             <img title="{{ 'General_ExportAsImage'|translate }}" src="plugins/Morpheus/images/image.png"/>
                         </a>
                     </span>
@@ -89,5 +95,5 @@
                 </li>
             {% endif %}
         </ul>
-    </div>
-{% endif %}
+    {% endif %}
+</div>
