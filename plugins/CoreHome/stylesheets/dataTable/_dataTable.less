@@ -234,10 +234,6 @@ div.dataTable, div.dataTable > .dataTableWrapper {
   text-align: center;
 }
 
-.dataTableFooterNavigation {
-  padding: 5px 0;
-}
-
 .dataTableNext,
 .dataTablePrevious,
 .dataTableSearchPattern {
@@ -255,12 +251,6 @@ div.dataTable, div.dataTable > .dataTableWrapper {
 }
 
 .dataTableFeatures {
-  &.expanded {
-    .dataTableFooterIcons {
-      display: block;
-    }
-  }
-
   &.hasEvolution {
     .dataTableFooterIcons {
       margin-top: 17px;
@@ -294,19 +284,6 @@ div.dataTable, div.dataTable > .dataTableWrapper {
 .dataTableFooterWrap select {
   float: left;
   margin: 1px 0 1px 10px;
-}
-
-.tableIcon {
-  background: #f2f1ed;
-  display: inline-block;
-  float: left;
-  margin: 0 1px 0 0;
-  padding: 2px;
-  border-radius: 2px;
-}
-
-.tableIcon:hover {
-  background: #e9e8e1;
 }
 
 .activeIcon {
@@ -487,7 +464,7 @@ td.cellSubDataTable .loadingPiwik {
   }
 }
 
-.dataTableIcons {
+.dataTableActions {
   position: absolute;
   top: 24px;
   right: 12px;
@@ -500,7 +477,7 @@ td.cellSubDataTable .loadingPiwik {
     }
   }
 
-  .dropdown-button {
+  .dataTableAction {
     border: 0;
     border: none;
     border-radius: 2px;
@@ -538,11 +515,11 @@ td.cellSubDataTable .loadingPiwik {
 
 .theWidgetContent {
   &:hover {
-    .dataTableIcons {
+    .dataTableActions {
       display: block;
     }
   }
-  .dataTableIcons {
+  .dataTableActions {
     display: none;
   }
 }

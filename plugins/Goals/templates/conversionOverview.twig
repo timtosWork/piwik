@@ -1,4 +1,4 @@
-<ul class="ulGoalTopElements">
+<div class="card"><div class="card-content"><ul class="ulGoalTopElements">
     {% if topDimensions.country is defined %}
         <li>{{ 'Goals_BestCountries'|translate }} {% include '@Goals/_listTopDimension.twig' with {'topDimension':topDimensions.country} %}</li>
     {% endif %}
@@ -17,3 +17,4 @@
     {{ 'Live_RowActionTooltipWithDimension'|translate('General_Goal'|translate) }}
 </a>
 <br style="clear:left"/>
+</div></div>

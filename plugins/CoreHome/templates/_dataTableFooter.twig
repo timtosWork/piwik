@@ -1,10 +1,7 @@
-<div class="dataTableFeatures expanded">
+<div class="dataTableFeatures">
     <div class="dataTableFooterNavigation">
 
-        {% set showRelatedReports = (properties.related_reports is not empty) and properties.show_related_reports %}
-        {% set showPaginationControl = properties.show_pagination_control and properties.show_limit_control %}
-
-        <div class="dataTableSearchPattern row">
+        <div class="row">
             {% if properties.show_offset_information %}
                 <div>
                     <span class="dataTablePages"></span>
@@ -19,19 +16,19 @@
             {% endif %}
 
             {% if properties.show_footer_icons %}
-                <div class="limitSelection {% if not showPaginationControl %} hidden{% endif %}"
+                <div class="limitSelection {% if not properties.show_pagination_control and not properties.show_limit_control %} hidden{% endif %}"
                      title="{{ 'General_RowsToDisplay'|translate }}" alt="{{ 'General_RowsToDisplay'|translate }}"></div>
             {% endif %}
 
             {% if properties.show_search %}
-                <div class="dataTableSearch">
+                <div class="dataTableSearchPattern">
                     <label for="widgetSearch_{{ properties.report_id }}" style="display:none;"> {{ 'General_Search'|translate }} {{ visualization.config.translations.label|default('') }}</label>
                     <input id="widgetSearch_{{ properties.report_id }}" type="text" class="searchInput" length="15" />
                     <input type="submit" value="{{ 'General_Search'|translate }}" />
                 </div>
             {% endif %}
 
-            {% if showRelatedReports %}
+            {% if (properties.related_reports is not empty) and properties.show_related_reports %}
                 <div class="datatableRelatedReports">
                     {{ properties.related_reports_title|raw }}
                     <ul style="list-style:none;{% if properties.related_reports|length == 1 %}display:inline-block;{% endif %}}">

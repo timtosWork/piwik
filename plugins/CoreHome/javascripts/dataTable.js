@@ -797,7 +797,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                     piwik.annotations.placeEvolutionIcons(annotations, domElem);
 
                     // add new section under axis
-                    annotations.insertAfter($('.datatableRelatedReports', domElem));
+                    annotations.insertBefore($('.dataTableFooterNavigation', domElem));
 
                     // reposition annotation icons every time the graph is resized
                     $('.piwik-graph', domElem).on('resizeGraph', function () {
@@ -835,7 +835,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                                 undefined, // lastN
                                 function (manager) {
                                     manager.attr('data-is-range', 0);
-                                    $('.annotationView img', domElem)
+                                    $('.annotationView', domElem)
                                         .attr('title', _pk_translate('Annotations_IconDesc'));
 
                                     var viewAndAdd = _pk_translate('Annotations_ViewAndAddAnnotations'),
@@ -919,11 +919,11 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 && annotationManager.attr('data-is-range') == 1) {
                 if (annotationManager.is(':hidden')) {
                     annotationManager.slideDown('slow'); // showing
-                    $('img', this).attr('title', _pk_translate('Annotations_IconDescHideNotes'));
+                    $(this).attr('title', _pk_translate('Annotations_IconDescHideNotes'));
                 }
                 else {
                     annotationManager.slideUp('slow'); // hiding
-                    $('img', this).attr('title', _pk_translate('Annotations_IconDesc'));
+                    $(this).attr('title', _pk_translate('Annotations_IconDesc'));
                 }
             }
             else {
@@ -941,7 +941,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 );
 
                 // change the tooltip of the view annotation icon
-                $('img', this).attr('title', _pk_translate('Annotations_IconDescHideNotes'));
+                $(this).attr('title', _pk_translate('Annotations_IconDescHideNotes'));
             }
         });
     },

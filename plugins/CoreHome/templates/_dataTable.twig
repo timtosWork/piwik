@@ -31,7 +31,7 @@
      data-params="{% if clientSideParameters is empty %}{}{% else %}{{ clientSideParameters|json_encode }}{% endif %}">
 
     {% if properties.show_footer %}
-        {% include "@CoreHome/_dataTableIcons.twig" %}
+        {% include "@CoreHome/_dataTableActions.twig" %}
     {% endif %}
 
     <div class="reportDocumentation">
