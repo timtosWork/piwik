@@ -1,13 +1,12 @@
 // We use `button:not(.btn)` because  `button` has a higher priority than CSS classes
 // which makes it impossible to use btn-lg or similar additional classes.
-button:not(.btn),
-input[type="submit"]:not(.btn),
-.btn {
+
+button.btn,input[type="submit"].btn, .btn {
     display: inline-block;
     .border-radius(3px);
     background: none;
-    color: @theme-color-brand-contrast !important;
     background-color: @theme-color-brand;
+    color: @theme-color-brand-contrast !important;
     #gradient > .vertical(rgba(255,255,255,.15), rgba(255,255,255,0));
     font-size: 12px;
     font-weight: normal;
@@ -27,13 +26,16 @@ input[type="submit"]:not(.btn),
     }
 }
 
+.btn-flat:hover {
+    background-color: @theme-color-background-base;
+    text-decoration: none !important;
+    box-shadow: 0 0;
+}
+
+
 // Bootstrap classes (can be removed in the future)
 .btn {
     display: inline-block;
-}
-.btn-lg {
-    padding: 12px 40px;
-    font-size: 14px;
 }
 .btn-block {
     display: block;
@@ -63,17 +65,29 @@ input[type="submit"]:not(.btn),
     box-shadow: none;
 }
 
-.btn.btn-flat {
-    background: transparent;
-    border-radius: 0;
-    color: @theme-color-text-light;
-    box-shadow: none;
-    padding: 5px 10px;
-    &:hover {
-        background-color: #eaeaea;
+.tableActionBar {
+    button {
+        height: 54px;
+        line-height: 54px;
+        box-shadow: none;
+        background-color: rgba(0, 0, 0, 0);
+        color: @theme-color-text;
+        cursor: pointer;
         text-decoration: none;
-    }
-    &.btn-lg {
-        padding: 12px;
+        background-color: inherit;
+        text-align: center;
+        letter-spacing: .5px;
+        transition: .2s ease-out;
+        border: none;
+        border-radius: 2px;
+        display: inline-block;
+        padding: 0 2rem;
+        text-transform: uppercase;
+        vertical-align: middle;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-appearance: button;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

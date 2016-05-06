@@ -74,6 +74,7 @@
                 ctrl.$render = function() {
                     scope.field.value = ctrl.$viewValue;
                 };
+
             },
             controller: function ($scope) {
                 var field = {};

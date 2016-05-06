@@ -1,78 +1,46 @@
-<tr class='{{ reportType }}'>
-    <td style='width:240px;' class="first">{{ 'ScheduledReports_SendReportTo'|translate }}
-    </td>
-    <td>
-        <input type="checkbox" id="report_email_me"/>
-        <label for="report_email_me">{{ 'ScheduledReports_SentToMe'|translate }} (<em>{{ currentUserEmail }}</em>) </label>
-        <br/><br/>
-        {{ 'ScheduledReports_AlsoSendReportToTheseEmails'|translate }}<br/>
-        <textarea cols="30" rows="3" id="report_additional_emails" class="inp"></textarea>
-        <script>
-            function updateEvolutionGraphParameterVisibility() {
-                var evolutionGraphParameterInput = $('.report_evolution_graph');
-                var nonApplicableDisplayFormats = ['1', '4'];
-                $.inArray($('#display_format').find('option:selected').val(), nonApplicableDisplayFormats) != -1 ?
-                        evolutionGraphParameterInput.hide() : evolutionGraphParameterInput.show();
-            }
 
-            $(function () {
+<div piwik-field uicontrol="checkbox"
+     name="report_email_me"
+     introduction="{{ 'ScheduledReports_SendReportTo'|translate|e('html_attr') }}"
+     field-condition="report_type == 'email'"
+     ng-model="manageScheduledReport.report.emailMe"
+     title="{{ 'ScheduledReports_SentToMe'|translate|e('html_attr') }} ({{ currentUserEmail|e('html_attr') }})">
+</div>
 
-                resetReportParametersFunctions ['{{ reportType }}'] =
-                        function () {
+<div piwik-field uicontrol="textarea"
+     field-condition="report_type == 'email'"
+     var-type="array"
+     ng-model="manageScheduledReport.report.additionalEmails"
+     title="{{ 'ScheduledReports_AlsoSendReportToTheseEmails'|translate|e('html_attr') }}">
+</div>
 
-                            var reportParameters = {
-                                'displayFormat': '{{ defaultDisplayFormat }}',
-                                'emailMe': {{ defaultEmailMe }},
-                                'evolutionGraph': {{ defaultEvolutionGraph }},
-                                'additionalEmails': null
-                            };
-                            updateReportParametersFunctions['{{ reportType }}'](reportParameters);
-                        };
+<script>
 
-                updateReportParametersFunctions['{{ reportType }}'] =
-                        function (reportParameters) {
+    $(function () {
 
-                            if (reportParameters == null) return;
+        resetReportParametersFunctions ['{{ reportType }}'] = function (report) {
+            report.displayFormat = '{{ defaultDisplayFormat }}';
+            report.emailMe = {{ defaultEmailMe }};
+            report.evolutionGraph = {{ defaultEvolutionGraph }};
+            report.additionalEmails = '';
+        };
 
-                            $('#display_format').find('option[value=' + reportParameters.displayFormat + ']').prop('selected', 'selected');
-                            updateEvolutionGraphParameterVisibility();
+        updateReportParametersFunctions['{{ reportType }}'] = function (report) {
+            if (report == null) return;
+        };
 
-                            if (reportParameters.emailMe === true)
-                                $('#report_email_me').prop('checked', 'checked');
-                            else
-                                $('#report_email_me').removeProp('checked');
+        getReportParametersFunctions['{{ reportType }}'] = function (report) {
 
-                            if (reportParameters.evolutionGraph === true)
-                                $('#report_evolution_graph').prop('checked', 'checked');
-                            else
-                                $('#report_evolution_graph').removeProp('checked');
+            var parameters = {};
 
-                            if (reportParameters.additionalEmails != null)
-                                $('#report_additional_emails').text(reportParameters.additionalEmails.join('\n'));
-                            else
-                                $('#report_additional_emails').html('');
+            parameters.displayFormat = report.displayFormat;
+            parameters.emailMe = report.emailMe;
+            parameters.evolutionGraph = report.evolutionGraph;
+            parameters.additionalEmails = report.additionalEmails ? report.additionalEmails : [];
 
-                            $(document).trigger('ScheduledReport.edit', {});
-                        };
+            return parameters;
+        };
 
-                getReportParametersFunctions['{{ reportType }}'] =
-                        function () {
-
-                            var parameters = Object();
-
-                            parameters.displayFormat = $('#display_format').find('option:selected').val();
-                            parameters.emailMe = $('#report_email_me').prop('checked');
-                            parameters.evolutionGraph = $('#report_evolution_graph').prop('checked');
-
-                            var additionalEmails = $('#report_additional_emails').val();
-                            parameters.additionalEmails =
-                                    additionalEmails != '' ? additionalEmails.split('\n') : [];
-
-                            return parameters;
-                        };
-
-                $('#display_format').change(updateEvolutionGraphParameterVisibility);
-            });
-        </script>
-    </td>
-</tr>
+        $('#display_format').change(updateEvolutionGraphParameterVisibility);
+    });
+</script>

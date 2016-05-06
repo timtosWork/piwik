@@ -1,4 +1,5 @@
-<div id='entityEditContainer' class="entityTableContainer">
+<div id='entityEditContainer' class="entityTableContainer"
+     ng-show="manageScheduledReport.showReportsList">
     <h2 piwik-enriched-headline help-url="http://piwik.org/docs/email-reports/">{{ title }}</h2>
 
     <table class="dataTable entityTable">
@@ -25,6 +26,7 @@
         </tr>
     {% elseif reports is empty %}
         <tr>
+
             <td colspan='7'>
                 <br/>
                 {{ 'ScheduledReports_ThereIsNoReportToManage'|translate(siteName)|raw }}.
@@ -60,7 +62,9 @@
                         <br/>
                     {% endfor %}
                     {# send now link #}
-                    <a href="#" idreport="{{ report.idreport }}" name="linkSendNow" class="link_but withIcon" style="margin-top:3px;">
+                    <a href="#"
+                       ng-click="manageScheduledReport.sendReportNow({{ report.idreport }})"
+                       name="linkSendNow" class="link_but withIcon" style="margin-top:3px;">
                         <img border=0 src='{{ reportTypes[report.type] }}'/>
                         {{ 'ScheduledReports_SendReportNow'|translate }}
                     </a>
@@ -79,12 +83,14 @@
                 </a>
             </td>
             <td class="text-center">
-                <button id="{{ report.idreport }}" class="edit-report btn btn-flat btn-lg" title="{{ 'General_Edit'|translate }}">
+                <button ng-click="manageScheduledReport.editReport({{ report.idreport }})"
+                        class="table-action" title="{{ 'General_Edit'|translate }}">
                     <span class="icon-edit"></span>
                 </button>
             </td>
             <td class="text-center">
-                <button id="{{ report.idreport }}" class="delete-report btn btn-flat btn-lg" title="{{ 'General_Delete'|translate }}">
+                <button ng-click="manageScheduledReport.deleteReport({{ report.idreport }})"
+                        class="table-action" title="{{ 'General_Delete'|translate }}">
                     <span class="icon-delete"></span>
                 </button>
             </td>
@@ -93,9 +99,9 @@
     {% endif %}
     </table>
 
-    <div class="actionBar">
+    <div class="tableActionBar">
         {% if userLogin != 'anonymous' %}
-            <button id="add-report" class="btn btn-lg btn-flat">
+            <button id="add-report" ng-click="manageScheduledReport.createReport()" >
                 <span class="icon-add"></span>
                 {{ 'ScheduledReports_CreateAndScheduleReport'|translate }}
             </button>

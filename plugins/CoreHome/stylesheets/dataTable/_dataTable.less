@@ -137,10 +137,6 @@ table.dataTable img {
   margin-left: 0;
 }
 
-.dataTable > .dataTableWrapper {
-  width: 450px;
-}
-
 div.dataTable, div.dataTable > .dataTableWrapper {
   margin-bottom: 9px; // same height as expand/contract button (so datatable height will encompass the
                       // expand/contract button)
@@ -464,7 +460,7 @@ td.cellSubDataTable .loadingPiwik {
   }
 }
 
-.dataTableActions {
+.dataTableControls {
   position: absolute;
   top: 24px;
   right: 12px;
@@ -515,11 +511,11 @@ td.cellSubDataTable .loadingPiwik {
 
 .theWidgetContent {
   &:hover {
-    .dataTableActions {
+    .dataTableControls {
       display: block;
     }
   }
-  .dataTableActions {
+  .dataTableControls {
     display: none;
   }
 }

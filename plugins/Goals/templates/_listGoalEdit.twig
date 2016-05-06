@@ -36,12 +36,12 @@
                     </td>
                     {% if userCanEditGoals %}
                         <td class="text-center">
-                            <button id="{{ goal.idgoal }}" class="edit-goal btn btn-flat btn-lg" title="{{ 'General_Edit'|translate }}">
+                            <button id="{{ goal.idgoal }}" class="edit-goal table-action" title="{{ 'General_Edit'|translate }}">
                                 <span class="icon-edit"></span>
                             </button>
                         </td>
                         <td class="text-center">
-                            <button id="{{ goal.idgoal }}" class="delete-goal btn btn-flat btn-lg" title="{{ 'General_Delete'|translate }}">
+                            <button id="{{ goal.idgoal }}" class="delete-goal table-action" title="{{ 'General_Delete'|translate }}">
                                 <span class="icon-delete"></span>
                             </button>
                         </td>
@@ -53,7 +53,7 @@
 
     {% if userCanEditGoals and onlyShowAddNewGoal is not defined %}
         <p>
-            <button id="add-goal" class="btn btn-lg btn-flat">
+            <button id="add-goal" class="btn-large btn-flat">
                 <span class="icon-add"></span>
                 {{ 'Goals_AddNewGoal'|translate }}
             </button>

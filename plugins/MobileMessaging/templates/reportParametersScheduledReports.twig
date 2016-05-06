@@ -1,62 +1,37 @@
-
-<tr class='{{ reportType }}'>
-    <td class="first">
-    {{ 'MobileMessaging_PhoneNumbers'|translate }}
-    </td>
-    <td>
-    <div class="entityInlineHelp">
+<div field-condition="report_type == 'mobile'">
     {% if phoneNumbers|length == 0 %}
-        <div><span class="icon-info"></span> {{ 'MobileMessaging_MobileReport_NoPhoneNumbers'|translate }}
+        <div><span class="icon-info"></span> {{ 'MobileMessaging_MobileReport_NoPhoneNumbers'|translate }}</div>
     {% else %}
-        <ul class="clearfix">
-        {% for phoneNumber in phoneNumbers %}
-            <li class="clear"><label><input name='phoneNumbers' type='checkbox' id='{{ phoneNumber }}'/>{{ phoneNumber }}</label></li>
-        {% endfor %}
-        </ul>
-        <div><span class="icon-info"></span> {{ 'MobileMessaging_MobileReport_AdditionalPhoneNumbers'|translate }}
+        <div class='{{ reportType }}'
+             piwik-field uicontrol="multiselect"
+             name="phoneNumbers"
+             ng-model="manageScheduledReport.report.phoneNumbers"
+             options="{{ phoneNumbers|json_encode }}"
+             inline-help="{{ 'MobileMessaging_MobileReport_AdditionalPhoneNumbers'|translate|e('html_attr') }}"
+             title="{{ 'MobileMessaging_PhoneNumbers'|translate|e('html_attr') }}">
+        </div>
     {% endif %}
-        <a href="{{ linkTo({'module':"MobileMessaging", 'action': 'index', 'updated':null}) }}">{{ 'MobileMessaging_MobileReport_MobileMessagingSettingsLink'|translate }}</a></div>
-    </div>
-    <script>
-    $(function () {
-        resetReportParametersFunctions ['{{ reportType }}'] = function () {
-            var reportParameters = {
-            'phoneNumbers': []
-            };
-            updateReportParametersFunctions['{{ reportType }}'](reportParameters);
-        };
 
-        updateReportParametersFunctions['{{ reportType }}'] = function (reportParameters) {
+    <a href="{{ linkTo({'module':"MobileMessaging", 'action': 'index', 'updated':null}) }}">{{ 'MobileMessaging_MobileReport_MobileMessagingSettingsLink'|translate }}</a>
+</div>
 
-            if (reportParameters == null) return;
+<script>
+$(function () {
+    resetReportParametersFunctions ['{{ reportType }}'] = function (report) {
+        report.phoneNumbers = [];
+        report.formatmobile = 'SMS';
+    };
 
-            $('[name=phoneNumbers]').removeProp('checked');
-            $(reportParameters.phoneNumbers).each(function (index, phoneNumber) {
-            $('#\\' + phoneNumber).prop('checked', 'checked');
-            });
+    updateReportParametersFunctions['{{ reportType }}'] = function (report) {
+    };
 
-            $(document).trigger('ScheduledReport.edit', {});
+    getReportParametersFunctions['{{ reportType }}'] = function (report) {
+        var parameters = {};
 
-        };
+        // returning [''] when no phone numbers are selected avoids the "please provide a value for 'parameters'" error message
+        parameters.phoneNumbers = report.phoneNumbers && report.phoneNumbers.length > 0 ? report.phoneNumbers : [''];
 
-        getReportParametersFunctions['{{ reportType }}'] = function () {
-            var parameters = Object();
-            var selectedPhoneNumbers = $.map(
-                $('[name=phoneNumbers]').filter(function() {
-                    return !this.disabled && this.checked;
-                }),
-                function (phoneNumber) {
-                    return $(phoneNumber).attr('id');
-                }
-            );
-
-            // returning [''] when no phone numbers are selected avoids the "please provide a value for 'parameters'" error message
-            parameters.phoneNumbers = selectedPhoneNumbers.length > 0 ? selectedPhoneNumbers : [''];
-
-            return parameters;
-        };
-    });
-    </script>
-
-    </td>
-</tr>
+        return parameters;
+    };
+});
+</script>

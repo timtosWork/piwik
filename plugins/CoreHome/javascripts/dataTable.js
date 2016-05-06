@@ -361,13 +361,26 @@ $.extend(DataTable.prototype, UIControl.prototype, {
                 return;
             }
 
-            $(domElem).width(maxTableWidth);
+            var $domElem = $(domElem);
 
-            var parentDataTable = $(domElem).parent('.dataTable');
+            var dataTableInCard = $domElem.parents('.card').first();
+            if (dataTableInCard && dataTableInCard.length) {
+                // makes sure card has the same width
+                dataTableInCard.width(maxTableWidth);
+            } else {
+                $domElem.width(maxTableWidth);
+            }
+
+            var parentDataTable = $domElem.parent('.dataTable');
             if (parentDataTable && parentDataTable.length) {
                 // makes sure dataTableWrapper and DataTable has same size => makes sure maxLabelWidth does not get
                 // applied in getLabelWidth() since they will have the same size.
-                parentDataTable.width(maxTableWidth);
+
+                if (dataTableInCard.length) {
+                    dataTableInCard.width(maxTableWidth);
+                } else {
+                    parentDataTable.width(maxTableWidth);
+                }
             }
         }
 
@@ -1188,7 +1201,7 @@ $.extend(DataTable.prototype, UIControl.prototype, {
 
         var getText = function (text, addDefault, replacement) {
             if (/(%(.\$)?s+)/g.test(_pk_translate(text))) {
-                var values = ['<br /><span class="action">&raquo; '];
+                var values = ['<br /><span class="action">'];
                 if(replacement) {
                     values.push(replacement);
                 }

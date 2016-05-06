@@ -50,6 +50,8 @@
             this.initComparedToXPeriodsAgo(domElem);
             this.initFilterBy(domElem);
             this.setFixWidthToMakeEllipsisWork(domElem);
+
+            $(domElem).find('select').material_select();
         },
 
         setFixWidthToMakeEllipsisWork: function (domElem) {

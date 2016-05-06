@@ -32,6 +32,13 @@
             } else if (element.attr('type') === 'radio') {
                 var name = element.attr('name');
                 return $('.form-group [name=' + name + ']:checked').val()
+            } else if (element.prop('tagName').toLowerCase() === 'select') {
+                var name = element.val();
+                if (name.indexOf('string:') === 0) {
+                    return name.substr('string:'.length);
+                }
+
+                return name;
             }
 
             return element.val();

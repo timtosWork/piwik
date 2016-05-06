@@ -1,6 +1,6 @@
  {% set randomIdForDropdown = random(999999) %}
 
-<div class="dataTableActions">
+<div class="dataTableControls">
 
     {% if properties.documentation|default is not empty or reportLastUpdatedMessage is defined %}
     <a class='dropdown-button dataTableAction'
@@ -31,23 +31,18 @@
                 {% for footerIconGroup in footerIcons %}
                     {% for footerIcon in footerIconGroup.buttons if footerIcon.icon %}
                         <li>
-                        <span class="{{ footerIconGroup.class }}">
                             {% set isActiveEcommerceView = clientSideParameters.abandonedCarts is defined and
                             ((footerIcon.id == 'ecommerceOrder' and clientSideParameters.abandonedCarts == 0) or
                             (footerIcon.id == 'ecommerceAbandonedCart' and clientSideParameters.abandonedCarts == 1)) %}
-
-                            <span>
-                                <a class="tableIcon {% if clientSideParameters.viewDataTable == footerIcon.id or isActiveEcommerceView %}activeIcon{% set activeFooterIcon = footerIcon.icon %}{% endif %}"
-                                   data-footer-icon-id="{{ footerIcon.id }}">
-                                    {% if footerIcon.icon starts with 'icon-' %}
-                                        <span title="{{ footerIcon.title }}" class="{{ footerIcon.icon }}"></span>
-                                    {% else %}
-                                        <img width="16" height="16" title="{{ footerIcon.title }}" src="{{ footerIcon.icon }}"/>
-                                    {% endif %}
-                                    {% if footerIcon.title is defined %}<span>{{ footerIcon.title }}</span>{% endif %}
-                                </a>
-                            </span>
-                        </span>
+                            <a class="{{ footerIconGroup.class }} tableIcon {% if clientSideParameters.viewDataTable == footerIcon.id or isActiveEcommerceView %}activeIcon{% set activeFooterIcon = footerIcon.icon %}{% endif %}"
+                               data-footer-icon-id="{{ footerIcon.id }}">
+                                {% if footerIcon.icon starts with 'icon-' %}
+                                    <span title="{{ footerIcon.title }}" class="{{ footerIcon.icon }}"></span>
+                                {% else %}
+                                    <img width="16" height="16" title="{{ footerIcon.title }}" src="{{ footerIcon.icon }}"/>
+                                {% endif %}
+                                {% if footerIcon.title is defined %}<span>{{ footerIcon.title }}</span>{% endif %}
+                            </a>
                         </li>
                     {% endfor %}
                     <li class="divider"></li>

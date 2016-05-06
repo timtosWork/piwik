@@ -122,6 +122,14 @@
 
                 $widgetContent.html(loadedContent);
 
+                /* move widget icons into datatable top actions
+                var $buttons = currentWidget.find('.buttons .button');
+                var $controls = currentWidget.find('.dataTableControls .dataTableAction').first();
+                if ($buttons.size() && $controls.size()) {
+                    $buttons.find('.button').addClass('dataTableAction');
+                    $buttons.insertBefore($controls);
+                }*/
+
                 if (currentWidget.parents('body').size()) {
                     // there might be race conditions, eg widget might be just refreshed while whole dashboard is also
                     // removed from DOM

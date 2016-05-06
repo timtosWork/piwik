@@ -81,8 +81,19 @@
         text-transform: none;
     }
 
-    .widgetContent .jqplot-graph {
-        margin-top: 6px;
+    .widgetContent {
+        /** We do not want to show a material-card in a widget which is already a card */
+        .card {
+            box-shadow: 0 0;
+
+            .card-content {
+                padding: 0;
+                border-radius: 0
+            }
+        }
+        .jqplot-graph {
+            margin-top: 6px;
+        }
     }
 
     .widgetContent.hidden {
