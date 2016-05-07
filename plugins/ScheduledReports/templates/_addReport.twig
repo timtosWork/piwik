@@ -18,7 +18,7 @@
         </div>
 
         {% if segmentEditorActivated %}
-            <div id="reportSegmentInlineHelp">
+            <div id="reportSegmentInlineHelp" class="inline-help-node">
                 {% set SegmentEditor_DefaultAllVisits %}{{ 'SegmentEditor_DefaultAllVisits'|translate }}{% endset %}
                 {% set SegmentEditor_AddNewSegment %}{{ 'SegmentEditor_AddNewSegment'|translate }}{% endset %}
                 {{ 'ScheduledReports_Segment_Help'|translate('<a href="./" rel="noreferrer"  target="_blank">','</a>',SegmentEditor_DefaultAllVisits,SegmentEditor_AddNewSegment)|raw }}
@@ -32,7 +32,7 @@
             </div>
         {% endif %}
 
-        <div id="emailScheduleInlineHelp">
+        <div id="emailScheduleInlineHelp" class="inline-help-node">
             {{ 'ScheduledReports_WeeklyScheduleHelp'|translate }}
             <br/>
             {{ 'ScheduledReports_MonthlyScheduleHelp'|translate }}
@@ -53,6 +53,7 @@
         <div piwik-field uicontrol="select" name="report_type"
              options="{{ reportTypeOptions|json_encode }}"
              ng-model="manageScheduledReport.report.type"
+             ng-change="manageScheduledReport.changedReportType()"
              {% if reportTypes|length == 1 %}disabled="true"{% endif %}
              title="{{ 'ScheduledReports_ReportType'|translate|e('html_attr') }}">
         </div>
@@ -62,7 +63,6 @@
                  class="{{ reportType }}"
                  ng-model="manageScheduledReport.report.format{{ reportType }}"
                  ng-show="manageScheduledReport.report.type == '{{ reportType }}'"
-                 ng-change="manageScheduledReport.changedReportType()"
                  options="{{ reportFormats|json_encode }}"
                  title="{{ 'ScheduledReports_ReportFormat'|translate|e('html_attr') }}">
             </div>
@@ -70,7 +70,7 @@
 
         {{ postEvent("Template.reportParametersScheduledReports") }}
 
-        <div ng-show="manageScheduledReport.report.type == 'email'">
+        <div ng-show="manageScheduledReport.report.type == 'email' && manageScheduledReport.report.formatemail !== 'csv'">
             <div piwik-field uicontrol="select" name="display_format" class="email"
                  ng-model="manageScheduledReport.report.displayFormat"
                  options="{{ displayFormats|json_encode }}"
@@ -80,7 +80,6 @@
             <div piwik-field uicontrol="checkbox" name="report_evolution_graph"
                  class="report_evolution_graph"
                  ng-model="manageScheduledReport.report.evolutionGraph"
-                 options="{{ displayFormats|json_encode }}"
                  ng-show="manageScheduledReport.report.displayFormat == '2' || manageScheduledReport.report.displayFormat == '3'"
                  title="{{ 'ScheduledReports_EvolutionGraph'|translate(5)|e('html_attr') }}">
             </div>

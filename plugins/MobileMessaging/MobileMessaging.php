@@ -208,7 +208,16 @@ class MobileMessaging extends \Piwik\Plugin
 
         $view = new View('@MobileMessaging/reportParametersScheduledReports');
         $view->reportType = self::MOBILE_TYPE;
-        $view->phoneNumbers = APIMobileMessaging::getInstance()->getActivatedPhoneNumbers();
+        $numbers = APIMobileMessaging::getInstance()->getActivatedPhoneNumbers();
+
+        $phoneNumbers = array();
+        if (!empty($numbers)) {
+            foreach ($numbers as $number) {
+                $phoneNumbers[$number] = $number;
+            }
+        }
+
+        $view->phoneNumbers = $phoneNumbers;
         $out .= $view->render();
     }
 

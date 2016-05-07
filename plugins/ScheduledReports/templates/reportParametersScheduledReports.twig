@@ -1,15 +1,13 @@
-
 <div piwik-field uicontrol="checkbox"
      name="report_email_me"
      introduction="{{ 'ScheduledReports_SendReportTo'|translate|e('html_attr') }}"
-     field-condition="report_type == 'email'"
+     ng-show="manageScheduledReport.report.type == 'email'"
      ng-model="manageScheduledReport.report.emailMe"
      title="{{ 'ScheduledReports_SentToMe'|translate|e('html_attr') }} ({{ currentUserEmail|e('html_attr') }})">
 </div>
 
-<div piwik-field uicontrol="textarea"
-     field-condition="report_type == 'email'"
-     var-type="array"
+<div piwik-field uicontrol="textarea" var-type="array"
+     ng-show="manageScheduledReport.report.type == 'email'"
      ng-model="manageScheduledReport.report.additionalEmails"
      title="{{ 'ScheduledReports_AlsoSendReportToTheseEmails'|translate|e('html_attr') }}">
 </div>
@@ -26,7 +24,17 @@
         };
 
         updateReportParametersFunctions['{{ reportType }}'] = function (report) {
-            if (report == null) return;
+            if (report == null || report.parameters == null) {
+                return;
+            }
+
+            var i, field, fields = ['displayFormat', 'emailMe', 'evolutionGraph', 'additionalEmails'];
+            for (i in fields) {
+                field = fields[i];
+                if (report.parameters[field]) {
+                    report[field] = report.parameters[field];
+                }
+            }
         };
 
         getReportParametersFunctions['{{ reportType }}'] = function (report) {
@@ -40,7 +48,5 @@
 
             return parameters;
         };
-
-        $('#display_format').change(updateEvolutionGraphParameterVisibility);
     });
 </script>

@@ -39,6 +39,8 @@
                     }
                 });
             });
+
+            Materialize.updateTextFields();
         };
 
         // 'lost your password?' on click
@@ -95,6 +97,7 @@
         });
 
         $('#login_form_login').focus();
+        Materialize.updateTextFields();
     });
 
 }(jQuery));

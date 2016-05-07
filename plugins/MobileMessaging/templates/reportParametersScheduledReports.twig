@@ -1,28 +1,40 @@
-<div field-condition="report_type == 'mobile'">
-    {% if phoneNumbers|length == 0 %}
-        <div><span class="icon-info"></span> {{ 'MobileMessaging_MobileReport_NoPhoneNumbers'|translate }}</div>
-    {% else %}
-        <div class='{{ reportType }}'
-             piwik-field uicontrol="multiselect"
-             name="phoneNumbers"
-             ng-model="manageScheduledReport.report.phoneNumbers"
-             options="{{ phoneNumbers|json_encode }}"
-             inline-help="{{ 'MobileMessaging_MobileReport_AdditionalPhoneNumbers'|translate|e('html_attr') }}"
-             title="{{ 'MobileMessaging_PhoneNumbers'|translate|e('html_attr') }}">
-        </div>
-    {% endif %}
+<div id="mobilePhoneNumbersHelp" class="inline-help-node">
+    <span class="icon-info"></span>
 
+    {% if phoneNumbers|length == 0 %}
+        {{ 'MobileMessaging_MobileReport_NoPhoneNumbers'|translate }}
+    {% else %}
+        {{ 'MobileMessaging_MobileReport_AdditionalPhoneNumbers'|translate|e('html_attr') }}
+    {% endif %}
     <a href="{{ linkTo({'module':"MobileMessaging", 'action': 'index', 'updated':null}) }}">{{ 'MobileMessaging_MobileReport_MobileMessagingSettingsLink'|translate }}</a>
+</div>
+
+<div ng-show="manageScheduledReport.report.type == 'mobile'">
+    <div class='{{ reportType }}'
+         piwik-field uicontrol="checkbox"
+         var-type="array"
+         name="phoneNumbers"
+         ng-model="manageScheduledReport.report.phoneNumbers"
+         introduction="{{ 'ScheduledReports_SendReportTo'|translate|e('html_attr') }}"
+         {% if phoneNumbers|length == 0 %}disabled="true"{% endif %}
+         options="{{ phoneNumbers|json_encode }}"
+         inline-help="#mobilePhoneNumbersHelp"
+         title="{{ 'MobileMessaging_PhoneNumbers'|translate|e('html_attr') }}">
+    </div>
 </div>
 
 <script>
 $(function () {
     resetReportParametersFunctions ['{{ reportType }}'] = function (report) {
         report.phoneNumbers = [];
-        report.formatmobile = 'SMS';
+        report.formatmobile = 'sms';
     };
 
     updateReportParametersFunctions['{{ reportType }}'] = function (report) {
+        if (report.parameters && report.parameters.phoneNumbers) {
+            report.phoneNumbers = report.parameters.phoneNumbers;
+        }
+        report.formatmobile = 'sms';
     };
 
     getReportParametersFunctions['{{ reportType }}'] = function (report) {

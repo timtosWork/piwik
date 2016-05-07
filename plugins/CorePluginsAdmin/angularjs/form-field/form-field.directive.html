@@ -68,7 +68,7 @@
                 <span class="form-description" ng-show="radioModel.description">{{ radioModel.description }}</span></label>
         </p>
 
-        <div ng-if="formField.uiControl == 'checkbox'" class="checkbox">
+        <div ng-if="formField.uiControl == 'checkbox' && !formField.availableOptions.length" class="checkbox">
             <input ng-model="formField.value"
                    piwik-attributes="{{formField.uiControlAttributes}}"
                    ng-value="1"
@@ -78,6 +78,21 @@
 
             <label for="{{ formField.name }}" ng-bind-html="formField.title"></label>
         </div>
+
+        <p ng-if="formField.uiControl == 'checkbox' && formField.availableOptions"
+           ng-repeat="checkboxModel in formField.availableOptions"
+           class="checkbox">
+            <input ng-model="formField.checkboxkeys[$index.toString()]"
+                   value="{{ checkboxModel.key }}"
+                   ng-change="formField.updateCheckboxArrayValue()"
+                   piwik-attributes="{{formField.uiControlAttributes}}"
+                   type="checkbox"
+                   id="{{ formField.name + checkboxModel.key }}"
+                   name="{{ checkboxModel.name }}">
+
+            <label for="{{ formField.name + checkboxModel.key }}">{{ checkboxModel.value }}
+                <span class="form-description" ng-show="checkboxModel.description">{{ checkboxModel.description }}</span></label>
+        </p>
 
         <div
              ng-if="(formField.uiControl == 'text' || formField.uiControl == 'password') && formField.type !== 'array'">

@@ -8,16 +8,18 @@
         {% endif %}
     {% endmacro %}
 
-    {% macro topMenuItem(label, icon, menu, currentModule, currentAction) %}
+    {% macro topMenuItem(label, icon, menu) %}
         {% if menu._html is defined %}
             {{ menu._html|raw }}
         {% else %}
             <a {% if menu._tooltip is defined %}title="{{ menu._tooltip }}"{% endif %}
-               class="topBarElem {% if (menu._url.module == currentModule and (menu._url.action is empty or menu._url.action == currentAction)) %}active{% endif %}"
+               class="topBarElem"
                id="topmenu-{{ menu._url.module|lower }}"
                href="index.php{{ menu._url|urlRewriteWithParameters }}" tabindex="3">{{ _self.menuItemLabel(label, icon) }}</a>
         {% endif %}
     {% endmacro %}
+
+    {% macro isActiveItem(menu, currentModule, currentAction) %}{% if (menu and menu._url and menu._url.module == currentModule and (menu._url.action is empty or menu._url.action == currentAction)) %}active{% endif %}{% endmacro %}
 
     {% if topMenuModule is not defined %}
         {% set topMenuModule = currentModule %}
@@ -26,13 +28,14 @@
 
     {% spaceless %}
         {% for label,menu in topMenu %}
-            <li role="menuitem">{{ _self.topMenuItem(label, menu._icon, menu, topMenuModule, topMenuAction) }}</li>
+            <li role="menuitem" class="{{ _self.isActiveItem(menu, topMenuModule, topMenuAction) }}">{{ _self.topMenuItem(label, menu._icon, menu) }}</li>
         {% endfor %}
     {% endspaceless %}
 </ul>
 <ul class="side-nav" id="mobile-demo">
     {% for label,menu in topMenu %}
-        <li role="menuitem">{{ _self.topMenuItem(label, '', menu, topMenuModule, topMenuAction) }}</li>
+        <li role="menuitem" class="{{ _self.isActiveItem(menu, topMenuModule, topMenuAction) }}"
+            >{{ _self.topMenuItem(label, '', menu) }}</li>
     {% endfor %}
 </ul>
 <a href="#" data-activates="mobile-demo" class="button-collapse"><span class="icon-menu-hamburger"></span></a>

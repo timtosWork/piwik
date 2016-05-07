@@ -82,7 +82,7 @@
 
                     var flatValues = [];
 
-                    if (hasUiControl(field, 'radio')) {
+                    if (hasUiControl(field, 'radio') || hasUiControl(field, 'checkbox')) {
                         angular.forEach(field.availableValues, function (value, key) {
 
                             if (angular.isObject(value) && typeof value.key !== 'undefined'){
@@ -132,6 +132,18 @@
 
                 return function (scope, element, attrs) {
                     var field = scope.piwikFormField;
+
+                    if (field.type === 'array' && hasUiControl(field, 'checkbox')) {
+                        field.updateCheckboxArrayValue = function () {
+                            var values = [];
+                            for (var x in field.checkboxkeys) {
+                                if (field.checkboxkeys[x]) {
+                                    values.push(field.availableOptions[x].key);
+                                }
+                            }
+                            field.value = values;
+                        }
+                    }
 
                     if (angular.isArray(field.defaultValue)) {
                         field.defaultValue = field.defaultValue.join(',');
@@ -203,6 +215,14 @@
 
                         } else if (hasUiControl(field, 'textarea')) {
                             element.find('textarea').trigger('autoresize');
+                            scope.$watch('formField.value', function (val, oldVal) {
+                                if (val !== oldVal) {
+                                    $timeout(function () {
+                                        element.find('textarea').trigger('autoresize');
+                                    });
+                                }
+                            });
+
                         } else if (hasUiControl(field, 'file')) {
 
                             // angular doesn't support file input type with ngModel. We implement our own "two way binding"
@@ -220,6 +240,13 @@
 
                         } else {
                             Materialize.updateTextFields();
+                            scope.$watch('formField.value', function (val, oldVal) {
+                                if (val !== oldVal) {
+                                    $timeout(function () {
+                                        Materialize.updateTextFields();
+                                    });
+                                }
+                            });
                         }
                     });
                 };

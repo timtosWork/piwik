@@ -7,12 +7,19 @@
 (function () {
     angular.module('piwikApp').controller('ManageScheduledReportController', ManageScheduledReportController);
 
-    ManageScheduledReportController.$inject = ['piwik'];
+    ManageScheduledReportController.$inject = ['piwik', '$timeout'];
 
-    function ManageScheduledReportController(piwik) {
+    function ManageScheduledReportController(piwik, $timeout) {
         // remember to keep controller very simple. Create a service/factory (model) if needed
 
         var self = this;
+
+        function updateParameters(reportType, report)
+        {
+            if (updateReportParametersFunctions && updateReportParametersFunctions[reportType]) {
+                updateReportParametersFunctions[reportType](report);
+            }
+        }
 
         function resetParameters(reportType, report)
         {
@@ -33,6 +40,7 @@
 
             if (idReport > 0) {
                 report = ReportPlugin.reportList[idReport];
+                updateParameters(report.type, report);
                 $('#report_submit').val(ReportPlugin.updateReportString);
             } else {
                 $('#report_submit').val(ReportPlugin.createReportString);
@@ -47,8 +55,6 @@
             }
 
             report['format' + report.type] = report.format;
-
-            updateReportParametersFunctions[report.type](report);
 
             self.report = report;
 
@@ -122,10 +128,8 @@
             return false;
         };
 
-        this.changedReportType = function (newVal, oldVal) {
-            if (oldVal !== newVal && newVal) {
-                resetParameters(newVal, self.report);
-            }
+        this.changedReportType = function () {
+            resetParameters(this.report.type, this.report);
         };
 
         // Email now
